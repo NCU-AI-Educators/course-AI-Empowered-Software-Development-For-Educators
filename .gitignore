@@ -19,6 +19,7 @@ temp/
 *.handout.md
 *.slides.md
 *.teacher.md
+*.pptx
 
 # Exclude large media files if necessary (optional, uncomment if needed)
 *.mp4
