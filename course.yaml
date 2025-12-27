@@ -1,0 +1,9 @@
+id: course-ai-se
+name: "AI Empowered Software Development For Educators"
+instructor: "Ying Li"
+description: "A comprehensive course designed to empower educators with AI tools for software engineering and teaching efficiency."
+version: "1.0.0"
+tags:
+  - AI
+  - Software Engineering
+  - Education

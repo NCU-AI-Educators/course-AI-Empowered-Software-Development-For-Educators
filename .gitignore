@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Generated Assets (Scripts Output)
+# 排除由脚本自动生成的临时文件，保留源文件
+dist/
+build/
+*.log
+tmp/
+temp/
+
+# Exclude large media files if necessary (optional, uncomment if needed)
+*.mp4
+*.mov
+*.zip
+*.tar.gz
+*.safetensors
+*.bin
+models/
