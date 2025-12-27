@@ -322,7 +322,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![不同等级景区价格小提琴图](data/3-1_violin.png)
+![不同等级景区价格小提琴图](image/3-1_violin.png)
 
 </div>
 </div>
@@ -491,7 +491,7 @@ plt.show()
 </div>
 <div>
 
-![PairPlot结果](data/3-2_pairplot.png)
+![PairPlot结果](image/3-2_pairplot.png)
 
 </div>
 </div>
@@ -621,7 +621,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![热力图结果](data/3-3_heatmap.png)
+![热力图结果](image/3-3_heatmap.png)
 
 </div>
 </div>
@@ -815,7 +815,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![江西省全景报告](data/3-4_jiangxi.png)
+![江西省全景报告](image/3-4_jiangxi.png)
 
 </div>
 </div>

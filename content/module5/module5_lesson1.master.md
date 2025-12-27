@@ -598,7 +598,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![热门旅游城市 Top 10](data/1-3.png)
+![热门旅游城市 Top 10](image/1-3.png)
 
 </div>
 </div>
@@ -783,7 +783,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![平均门票价格最贵的城市 Top 10](data/1-4.png)
+![平均门票价格最贵的城市 Top 10](image/1-4.png)
 
 </div>
 </div>
@@ -950,7 +950,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![等级分布饼图](data/1-5.png)
+![等级分布饼图](image/1-5.png)
 
 </div>
 </div>

@@ -325,7 +325,7 @@ plt.show()
 </div>
 <div>
 
-![散点图示意图：显示出受异常值影响严重的畸形图表](data/2-1.png)
+![散点图示意图：显示出受异常值影响严重的畸形图表](image/2-1.png)
 
 <div class="insight">
 
@@ -462,7 +462,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![运行结果截图占位符](data/2-2.png)
+![运行结果截图占位符](image/2-2.png)
 
 </div>
 </div>
@@ -730,7 +730,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![直方图示意图：柱子主要集中在4.0到5.0之间](data/2-3.png)
+![直方图示意图：柱子主要集中在4.0到5.0之间](image/2-3.png)
 
 </div>
 </div>
@@ -859,7 +859,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![箱线图示意图：显示出随等级升高价格明显上升的趋势](data/2-4.png)
+![箱线图示意图：显示出随等级升高价格明显上升的趋势](image/2-4.png)
 
 </div>
 </div>
@@ -968,7 +968,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![中高价位等级评分对比箱线图](data/2-5.png)
+![中高价位等级评分对比箱线图](image/2-5.png)
 
 </div>
 </div>

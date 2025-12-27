@@ -582,7 +582,7 @@ h2 {
 
 <div class="align-center">
 
-![width:800px](images/Overview.png)
+![width:800px](image/Overview.png)
 </div>
 
 > *“哇，这个图好漂亮！”*
