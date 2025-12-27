@@ -15,6 +15,11 @@ build/
 tmp/
 temp/
 
+# Generated Markdown Variants
+*.handout.md
+*.slides.md
+*.teacher.md
+
 # Exclude large media files if necessary (optional, uncomment if needed)
 *.mp4
 *.mov
