@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-27-12-15-09.png)
+![bg blur:3px brightness:60%](image/2025-11-27-12-15-09.png)
 
 <style scoped>
 h1{
@@ -158,7 +158,7 @@ h2 {
 </div>
 <div>
 
-![一张乱七八糟的Excel表，有空行，有重复行，有红色标记的异常值 width:450px](../../../lectures/images/2025-11-27-12-29-00.png)
+![一张乱七八糟的Excel表，有空行，有重复行，有红色标记的异常值 width:450px](image/2025-11-27-12-29-00.png)
 
 </div>
 </div>
@@ -222,7 +222,7 @@ h2 {
 </div>
 <div class="align-top-left">
 
-![配图占位符](../../../lectures/images/2025-11-27-12-20-28.png)
+![配图占位符](image/2025-11-27-12-20-28.png)
 
 </div>
 </div>

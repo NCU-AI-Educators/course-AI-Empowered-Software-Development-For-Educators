@@ -16,7 +16,7 @@ ul, ol { padding-inline-start: 25px; }
 .quote { background-color: #fffaf0; border-left: 5px solid #ffcc00; padding: 20px; font-style: italic; }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-12-06-02-47-49.png)
+![bg blur:3px brightness:60%](image/2025-12-06-02-47-49.png)
 
 <style scoped>
 h1, h2 { color: #F5F5F5; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); }

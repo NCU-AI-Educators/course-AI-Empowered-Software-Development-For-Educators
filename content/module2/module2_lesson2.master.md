@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-13-18-53-14.png)
+![bg blur:3px brightness:60%](image/2025-11-13-18-53-14.png)
 
 <style scoped>
 h1{
@@ -158,7 +158,7 @@ h2 {
 </div>
 <div>
 
-![一个机器人只能沿着一条直线路径行走，无法拐弯 width:400px](../../../lectures/images/2025-11-14-00-07-39.png)
+![一个机器人只能沿着一条直线路径行走，无法拐弯 width:400px](image/2025-11-14-00-07-39.png)
 
 </div>
 </div>
@@ -470,7 +470,7 @@ print("玩家等级是不是大于10?", 15 > 10)
 
 <div class="align-middle-center">
 
-![一个清晰的拨动式电灯开关，左边是关，右边是开 width:300px](../../../lectures/images/2025-11-13-18-58-04.png)
+![一个清晰的拨动式电灯开关，左边是关，右边是开 width:300px](image/2025-11-13-18-58-04.png)
 
 </div>
 
@@ -546,7 +546,7 @@ else:
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![width:240px](../../../lectures/images/2025-11-13-20-20-13.png)
+![width:240px](image/2025-11-13-20-20-13.png)
 **决策的可视化流程图**
 
 </div>
@@ -626,7 +626,7 @@ else: # 如果以上所有判断都为假
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![width:300px](../../../lectures/images/2025-11-13-20-22-16.png)
+![width:300px](image/2025-11-13-20-22-16.png)
 **“立交桥”的可视化流程图**
 
 </div>
@@ -1080,7 +1080,7 @@ else:
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![AI负责实现，你负责设计和验收 width:400px](../../../lectures/images/2025-11-13-19-01-58.png)
+![AI负责实现，你负责设计和验收 width:400px](image/2025-11-13-19-01-58.png)
 
 **你的核心价值：代码评审与逻辑验收。** AI负责实现代码，你负责确保代码的逻辑符合你的设计蓝图。
 
@@ -1145,7 +1145,7 @@ AI能不知疲倦地编写代码，但它没有灵魂，没有世界观。它不
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![一个艺术家正在为一个巨大的机器人心脏绘制蓝图 width:300px](../../../lectures/images/2025-11-13-19-05-15.png)
+![一个艺术家正在为一个巨大的机器人心脏绘制蓝图 width:300px](image/2025-11-13-19-05-15.png)
 
 <div class="insight" style="margin-top: 0.2rem;">
 
@@ -1238,7 +1238,7 @@ AI能不知疲倦地编写代码，但它没有灵魂，没有世界观。它不
 
 <div class="align-middle-center">
 
-![width:400px](../../../lectures/images/2025-11-13-19-06-50.png)
+![width:400px](image/2025-11-13-19-06-50.png)
 
 </div>
 
@@ -1315,7 +1315,7 @@ AI能不知疲倦地编写代码，但它没有灵魂，没有世界观。它不
 
 <div class="align-middle-center">
 
-![width:400px](../../../lectures/images/2025-11-13-19-09-28.png)
+![width:400px](image/2025-11-13-19-09-28.png)
 
 </div>
 

@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:1px brightness:60%](../../../lectures/images/2025-11-27-11-46-55.png)
+![bg blur:1px brightness:60%](image/2025-11-27-11-46-55.png)
 
 <style scoped>
 h1{
@@ -153,7 +153,7 @@ h2 {
 </div>
 <div>
 
-![一个漏斗图，上面是杂乱的英雄头像，下面漏出来的是几位强力法师 width:480px](../../../lectures/images/2025-11-27-11-56-35.png)
+![一个漏斗图，上面是杂乱的英雄头像，下面漏出来的是几位强力法师 width:480px](image/2025-11-27-11-56-35.png)
 
 </div>
 </div>
@@ -213,7 +213,7 @@ h2 {
 </div>
 <div>
 
-![配图占位符 width:480px](../../../lectures/images/2025-11-27-11-59-49.png)
+![配图占位符 width:480px](image/2025-11-27-11-59-49.png)
 
 </div>
 </div>
@@ -281,7 +281,7 @@ df[
 </div>
 <div>
 
-![width:300px](../../../lectures/images/2025-11-27-12-03-31.png)
+![width:300px](image/2025-11-27-12-03-31.png)
 
 **输出结果 (top_mages.xlsx)**
 | 英雄 | 胜率 |
@@ -528,7 +528,7 @@ target = df[
 </div>
 <div>
 
-![](../../../lectures/images/2025-11-27-12-12-01.png)
+![](image/2025-11-27-12-12-01.png)
 
 </div>
 </div>

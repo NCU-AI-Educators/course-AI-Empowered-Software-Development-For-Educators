@@ -69,7 +69,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:2px brightness:60%](../../../lectures/images/2025-12-13-16-38-09.png)
+![bg blur:2px brightness:60%](image/2025-12-13-16-38-09.png)
 
 <style scoped>
 h1{
@@ -154,7 +154,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![配图：左边是黑框框截图，中间箭头，右边是带有按钮和图片的网页截图](../../../lectures/images/2025-12-13-16-42-59.png)
+![配图：左边是黑框框截图，中间箭头，右边是带有按钮和图片的网页截图](image/2025-12-13-16-42-59.png)
 
 </div>
 </div>
@@ -509,7 +509,7 @@ players = {
 
 ## **3.3 效果演示：API 架构图**
 
-![](../../../lectures/images/2025-12-13-22-06-06.png)
+![](image/2025-12-13-22-06-06.png)
 
 <!--
 - **类型**: 教学设计
@@ -673,7 +673,7 @@ players = {
 
 <div class="align-center">
 
-![width:800px](../../../lectures/images/2025-12-13-16-57-37.png)
+![width:800px](image/2025-12-13-16-57-37.png)
 
 </div>
 
@@ -817,7 +817,7 @@ INFO:     127.0.0.1:51688 - "POST /move?uid=HuangRong" 200 OK
 
 ## **5.3 效果演示：联网对战**
 
-![](../../../lectures/images/2025-12-13-17-01-16.png)
+![](image/2025-12-13-17-01-16.png)
 
 <!--
 - **类型**: 逐字稿
@@ -868,7 +868,7 @@ INFO:     127.0.0.1:51688 - "POST /move?uid=HuangRong" 200 OK
 </div>
 <div class="align-middle-center">
 
-![配图：手机扫描电脑屏幕上的二维码，进入游戏的场景](../../../lectures/images/2025-12-13-17-05-45.png)
+![配图：手机扫描电脑屏幕上的二维码，进入游戏的场景](image/2025-12-13-17-05-45.png)
 
 </div>
 </div>
@@ -1013,7 +1013,7 @@ my_web_tool/
 </div>
 <div class="align-middle-center">
 
-![配图：一个复杂的钟表内部结构，象征解耦后的精密系统](../../../lectures/images/2025-12-13-17-18-16.png)
+![配图：一个复杂的钟表内部结构，象征解耦后的精密系统](image/2025-12-13-17-18-16.png)
 
 </div>
 </div>

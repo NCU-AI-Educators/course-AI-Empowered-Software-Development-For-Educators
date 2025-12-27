@@ -69,7 +69,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-12-06-03-05-06.png)
+![bg blur:3px brightness:60%](image/2025-12-06-03-05-06.png)
 
 <style scoped>
 h1{
@@ -148,7 +148,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![配图占位符](../../../lectures/images/2025-12-06-03-06-41.png)
+![配图占位符](image/2025-12-06-03-06-41.png)
 
 </div>
 </div>
@@ -374,7 +374,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![PairPlot示意图：一个密密麻麻的图表矩阵](../../../lectures/images/2025-12-06-03-09-17.png)
+![PairPlot示意图：一个密密麻麻的图表矩阵](image/2025-12-06-03-09-17.png)
 
 </div>
 </div>
@@ -673,7 +673,7 @@ plt.show()
 </div>
 <div class="align-middle-center">
 
-![配图：一张包含饼图、分布图、散点图的组合分析报告示意图](../../../lectures/images/2025-12-06-03-12-38.png)
+![配图：一张包含饼图、分布图、散点图的组合分析报告示意图](image/2025-12-06-03-12-38.png)
 
 </div>
 </div>

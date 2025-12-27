@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-13-00-46-46.png)
+![bg blur:3px brightness:60%](image/2025-11-13-00-46-46.png)
 
 <style scoped>
 h1{
@@ -206,7 +206,7 @@ AI交付给我们的是一个神奇的“**黑箱**”。我们知道它能用�
 </div>
 <div class="align-middle-center">
 
-![一个学生与一个友好的AI机器人对话，AI正在展示代码，学生露出恍然大悟的表情 width:400px](../../../lectures/images/2025-11-13-16-04-21.png)
+![一个学生与一个友好的AI机器人对话，AI正在展示代码，学生露出恍然大悟的表情 width:400px](image/2025-11-13-16-04-21.png)
 
 </div>
 </div>
@@ -431,7 +431,7 @@ print("你走了进去，发现里面坐满了茶客，一位说书人正在讲�
 
 <div class="align-middle-center">
 
-![一个程序员面对一团乱麻的代码，显得很苦恼 width:400px](../../../lectures/images/2025-11-13-00-50-20.png)
+![一个程序员面对一团乱麻的代码，显得很苦恼 width:400px](image/2025-11-13-00-50-20.png)
 
 </div>
 </div>
@@ -485,7 +485,7 @@ print("你走了进去，发现里面坐满了茶客，一位说书人正在讲�
 </div>
 <div class="align-middle-center">
 
-![一个数据盒，上面贴着标签“location_name”，盒子里面装着文本“扬州广场” width:400px](../../../lectures/images/2025-11-13-01-01-44.png)
+![一个数据盒，上面贴着标签“location_name”，盒子里面装着文本“扬州广场” width:400px](image/2025-11-13-01-01-44.png)
 
 </div>
 </div>
@@ -913,7 +913,7 @@ print(f"你移动到了【{player_location}】")
 </div>
 <div class="align-middle-center">
 
-![一个大脑中包含着清晰的逻辑齿轮的图片 width:400px](../../../lectures/images/2025-11-13-01-05-34.png)
+![一个大脑中包含着清晰的逻辑齿轮的图片 width:400px](image/2025-11-13-01-05-34.png)
 
 </div>
 </div>
@@ -1032,7 +1032,7 @@ loc2_desc = "你走进了一家茶馆，茶香四溢。"
 </div>
 <div class="align-middle-center">
 
-![两组分离的、代表变量的方框，一组是loc1_name和loc1_desc，另一组是loc2_name和loc2_desc，它们之间没有连接，显得很混乱 width:450px](../../../lectures/images/2025-11-13-01-06-42.png)
+![两组分离的、代表变量的方框，一组是loc1_name和loc1_desc，另一组是loc2_name和loc2_desc，它们之间没有连接，显得很混乱 width:450px](image/2025-11-13-01-06-42.png)
 
 </div>
 </div>
@@ -1173,7 +1173,7 @@ print(guangchang["description"])
 </div>
 <div class="align-top-center">
 
-![一个储物柜，上面贴着“扬州广场”的标签，每个抽屉上分别贴着“名称”、“描述”、“出口”的标签 width:320px](../../../lectures/images/2025-11-13-01-10-48.png)
+![一个储物柜，上面贴着“扬州广场”的标签，每个抽屉上分别贴着“名称”、“描述”、“出口”的标签 width:320px](image/2025-11-13-01-10-48.png)
 
 
 </div>
@@ -1266,7 +1266,7 @@ print(guangchang["description"])
 </div>
 <div class="align-middle-center">
 
-![一堆散乱的、代表不同地点的字典变量，它们之间没有连接 width:120px](../../../lectures/images/2025-11-13-01-19-49.png)
+![一堆散乱的、代表不同地点的字典变量，它们之间没有连接 width:120px](image/2025-11-13-01-19-49.png)
 
 </div>
 </div>
@@ -1901,7 +1901,7 @@ AI生成代码后，不要只看结果。请带着“架构师”的视角，向
 </div>
 <div class="align-middle-center">
 
-![一个装满金币和技能图标的宝箱 width:400px](../../../lectures/images/2025-11-13-01-25-56.png)
+![一个装满金币和技能图标的宝箱 width:400px](image/2025-11-13-01-25-56.png)
 
 </div>
 </div>
@@ -1961,7 +1961,7 @@ AI生成代码后，不要只看结果。请带着“架构师”的视角，向
 </div>
 <div class="align-middle-center">
 
-![一个机器人只能沿着一条直线路径行走，无法拐弯 width:400px](../../../lectures/images/2025-11-13-01-31-21.png)
+![一个机器人只能沿着一条直线路径行走，无法拐弯 width:400px](image/2025-11-13-01-31-21.png)
 
 </div>
 </div>
@@ -2020,7 +2020,7 @@ AI生成代码后，不要只看结果。请带着“架构师”的视角，向
 </div>
 <div>
 
-![width:400px](../../../lectures/images/2025-11-13-01-34-16.png)
+![width:400px](image/2025-11-13-01-34-16.png)
 
 </div>
 </div>

@@ -73,7 +73,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-12-06-02-47-49.png)
+![bg blur:3px brightness:60%](image/2025-12-06-02-47-49.png)
 
 <style scoped>
 h1{
@@ -159,7 +159,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![左边是密密麻麻的Excel表格，右边是一张清晰的柱状图显示Top10城市 width:400px](../../../lectures/images/2025-12-06-02-49-55.png)
+![左边是密密麻麻的Excel表格，右边是一张清晰的柱状图显示Top10城市 width:400px](image/2025-12-06-02-49-55.png)
 
 </div>
 </div>
@@ -200,7 +200,7 @@ h2 {
 
 <div class="align-top-center">
 
-![数据驾驶舱示意图：深色背景，中央是中国地图热力图，四周环绕各种统计图表 width:800px](../../../lectures/images/2025-12-06-02-52-14.png)
+![数据驾驶舱示意图：深色背景，中央是中国地图热力图，四周环绕各种统计图表 width:800px](image/2025-12-06-02-52-14.png)
 
 </div>
 

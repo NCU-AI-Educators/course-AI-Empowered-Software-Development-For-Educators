@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-12-06-02-54-56.png)
+![bg blur:3px brightness:60%](image/2025-12-06-02-54-56.png)
 
 <style scoped>
 h1{
@@ -153,7 +153,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![配图：一个侦探拿着放大镜在看数据点](../../../lectures/images/2025-12-06-03-03-49.png)
+![配图：一个侦探拿着放大镜在看数据点](image/2025-12-06-03-03-49.png)
 
 </div>
 </div>
@@ -207,7 +207,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![配图占位符](../../../lectures/images/2025-12-06-02-59-49.png)
+![配图占位符](image/2025-12-06-02-59-49.png)
 
 </div>
 </div>

@@ -41,7 +41,7 @@ ul, ol {
 .align-bottom-right { display: flex; justify-content: flex-end;   align-items: flex-end; }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-10-26-00-52-00.png)
+![bg blur:3px brightness:60%](image/2025-10-26-00-52-00.png)
 
 <style scoped>
 h1{
@@ -126,7 +126,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个从观众席走向舞台的魔法师隐喻图片 width:400px](../../../lectures/images/2025-10-26-00-21-55.png)
+![一个从观众席走向舞台的魔法师隐喻图片 width:400px](image/2025-10-26-00-21-55.png)
 
 </div>
 </div>
@@ -185,7 +185,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一张充满奇幻风格的冒险地图，包含六个标记点 width:400px](../../../lectures/images/2025-10-26-14-54-59.png)
+![一张充满奇幻风格的冒险地图，包含六个标记点 width:400px](image/2025-10-26-14-54-59.png)
 
 </div>
 </div>
@@ -356,7 +356,7 @@ Visual Studio Code (简称 VS Code) 是我们未来的“魔法工作室”和�
 </div>
 <div class="align-middle-center">
 
-![Node.js官网首页截图，并高亮LTS版本下载按钮 width:400px](../../../lectures/images/2025-10-26-00-30-17.png)
+![Node.js官网首页截图，并高亮LTS版本下载按钮 width:400px](image/2025-10-26-00-30-17.png)
 
 </div>
 </div>
@@ -426,7 +426,7 @@ Visual Studio Code (简称 VS Code) 是我们未来的“魔法工作室”和�
 </div>
 <div class="align-middle-center">
 
-![一个从电脑屏幕中浮现出的友好AI助手形象 width:400px](../../../lectures/images/2025-10-26-00-31-49.png)
+![一个从电脑屏幕中浮现出的友好AI助手形象 width:400px](image/2025-10-26-00-31-49.png)
 
 </div>
 </div>
@@ -484,7 +484,7 @@ Visual Studio Code (简称 VS Code) 是我们未来的“魔法工作室”和�
 
 <div class="align-middle-center">
 
-![一个终端窗口的特写，清晰地显示光标在闪烁的 `>` 提示符后 width:250px](../../../lectures/images/2025-10-26-00-33-06.png)
+![一个终端窗口的特写，清晰地显示光标在闪烁的 `>` 提示符后 width:250px](image/2025-10-26-00-33-06.png)
 
 </div>
 
@@ -530,7 +530,7 @@ Visual Studio Code (简称 VS Code) 是我们未来的“魔法工作室”和�
 
 我们将命令它，从零开始，创造一个充满艺术感的“关系宇宙”动态网页，并保存成文件然后**自动打开它**。
 
-![第一节课中展示的“关系宇宙”动态效果图 width:700px](../../../lectures/images/2025-10-25-16-31-11.png)
+![第一节课中展示的“关系宇宙”动态效果图 width:700px](image/2025-10-25-16-31-11.png)
 
 <!--
 - **类型**: 逐字稿
@@ -717,7 +717,7 @@ pre {
 </div>
 <div class="align-middle-center">
 
-![“关系宇宙”网页在浏览器中全屏运行的惊艳截图 width:400px](../../../lectures/images/2025-10-26-00-34-35.png)
+![“关系宇宙”网页在浏览器中全屏运行的惊艳截图 width:400px](image/2025-10-26-00-34-35.png)
 
 </div>
 </div>
@@ -774,7 +774,7 @@ pre {
 </div>
 <div class="align-middle-center">
 
-![一个友好的机器人老师正在指向Python的Logo width:400px](../../../lectures/images/2025-10-26-00-36-17.png)
+![一个友好的机器人老师正在指向Python的Logo width:400px](image/2025-10-26-00-36-17.png)
 
 </div>
 </div>
@@ -892,7 +892,7 @@ pre {
 </div>
 <div class="align-middle-center">
 
-![Python在Windows上安装过程的截图，并用红色方框高亮“Add Python to PATH”复选框 width:400px](../../../lectures/images/2025-10-26-00-37-38.png)
+![Python在Windows上安装过程的截图，并用红色方框高亮“Add Python to PATH”复选框 width:400px](image/2025-10-26-00-37-38.png)
 
 </div>
 </div>
@@ -1015,7 +1015,7 @@ $ qwen --version
 </div>
 <div class="align-middle-center">
 
-![一个庆祝性的图片，上面有“工作室落成”的字样和Python、AI助手的Logo width:400px](../../../lectures/images/2025-10-26-00-38-58.png)
+![一个庆祝性的图片，上面有“工作室落成”的字样和Python、AI助手的Logo width:400px](image/2025-10-26-00-38-58.png)
 
 </div>
 </div>
@@ -1130,7 +1130,7 @@ $ qwen --version
 </div>
 <div class="align-middle-center">
 
-![一个动态随机点名器应用的GIF或静态截图 width:400px](../../../lectures/images/2025-10-26-01-01-15.png)
+![一个动态随机点名器应用的GIF或静态截图 width:400px](image/2025-10-26-01-01-15.png)
 
 </div>
 </div>

@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-21-00-14-43.png)
+![bg blur:3px brightness:60%](image/2025-11-21-00-14-43.png)
 
 <style scoped>
 h1{
@@ -164,7 +164,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个充满自信的开发主管，站在白板前，指挥着一个AI机器人团队 width:400px](../../../lectures/images/2025-11-21-00-16-12.png)
+![一个充满自信的开发主管，站在白板前，指挥着一个AI机器人团队 width:400px](image/2025-11-21-00-16-12.png)
 </div>
 </div>
 
@@ -232,7 +232,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个文件列表，通过一个脚本，所有文件名前都加上了统一的前缀，例如“2025秋-软件工程-” width:400px](../../../lectures/images/2025-11-21-00-17-40.png)
+![一个文件列表，通过一个脚本，所有文件名前都加上了统一的前缀，例如“2025秋-软件工程-” width:400px](image/2025-11-21-00-17-40.png)
 
 </div>
 </div>
@@ -282,7 +282,7 @@ h2 {
 
 <div class="align-center">
 
-![height:350px](../../../lectures/images/2025-11-21-12-23-55.png)
+![height:350px](image/2025-11-21-12-23-55.png)
 
 </div>
 
@@ -352,7 +352,7 @@ h2 {
 </div>
 <div class="align-center">
 
-![width:165px](../../../lectures/images/2025-11-21-12-34-20.png)
+![width:165px](image/2025-11-21-12-34-20.png)
 </div>
 </div>
 
@@ -791,7 +791,7 @@ h2 {
 
 <div>
 
-![](../../../lectures/images/2025-11-21-13-10-06.png)
+![](image/2025-11-21-13-10-06.png)
 </div>
 
 我们今天的实践，主要就是模拟流程图中的“**沙盒测试**”这个过程。
@@ -912,7 +912,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个自信的领导者，身后是代表函数、调试、审查的图标，他/她正在指挥一个AI团队 width:400px](../../../lectures/images/2025-11-21-01-03-59.png)
+![一个自信的领导者，身后是代表函数、调试、审查的图标，他/她正在指挥一个AI团队 width:400px](image/2025-11-21-01-03-59.png)
 
 </div>
 </div>
@@ -960,7 +960,7 @@ h2 {
 <div class="columns align-middle">
 <div>
 
-![width:250px](../../../lectures/images/2025-11-03-12-09-12.png)
+![width:250px](image/2025-11-03-12-09-12.png)
 
 </div>
 
@@ -1033,7 +1033,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个数据分析师与AI机器人一起，看着屏幕上由Excel表格转换成的酷炫图表 width:400px](../../../lectures/images/2025-11-21-01-05-17.png)
+![一个数据分析师与AI机器人一起，看着屏幕上由Excel表格转换成的酷炫图表 width:400px](image/2025-11-21-01-05-17.png)
 
 </div>
 </div>

@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-13-20-33-40.png)
+![bg blur:3px brightness:60%](image/2025-11-13-20-33-40.png)
 
 <style scoped>
 h1{
@@ -154,7 +154,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个心脏停止跳动的静态心电图 width:400px](../../../lectures/images/2025-11-13-20-35-54.png)
+![一个心脏停止跳动的静态心电图 width:400px](image/2025-11-13-20-35-54.png)
 
 </div>
 </div>
@@ -203,7 +203,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个直线箭头和一个循环箭头，对比两种流程 width:400px](../../../lectures/images/2025-11-13-21-08-07.png)
+![一个直线箭头和一个循环箭头，对比两种流程 width:400px](image/2025-11-13-21-08-07.png)
 
 </div>
 </div>
@@ -255,7 +255,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个魔法师念出咒语，一个巨大的齿轮开始缓缓转动 width:400px](../../../lectures/images/2025-11-13-21-15-57.png)
+![一个魔法师念出咒语，一个巨大的齿轮开始缓缓转动 width:400px](image/2025-11-13-21-15-57.png)
 
 </div>
 </div>
@@ -434,7 +434,7 @@ for item in items_in_room:
 </div>
 <div class="align-top-center">
 
-![width:240px](../../../lectures/images/2025-11-13-20-46-14.png)
+![width:240px](image/2025-11-13-20-46-14.png)
 
 </div>
 </div>
@@ -504,7 +504,7 @@ print("循环已结束。")
 </div>
 <div class="align-middle-center">
 
-![一个文件夹包含多个文件的图标，形象地表示层级关系 width:400px](../../../lectures/images/2025-11-13-21-23-40.png)
+![一个文件夹包含多个文件的图标，形象地表示层级关系 width:400px](image/2025-11-13-21-23-40.png)
 
 </div>
 </div>
@@ -568,12 +568,12 @@ while True:
 <div class="align-middle-center" style="flex-direction: column; justify-content: space-around; height: 100%;">
 <div>
 
-![一个不断搏动的心脏，或者一个永恒运转的引擎 width:200px](../../../lectures/images/2025-11-13-21-27-44.png)
+![一个不断搏动的心脏，或者一个永恒运转的引擎 width:200px](image/2025-11-13-21-27-44.png)
 
 </div>
 <div>
 
-![width:200px](../../../lectures/images/2025-11-13-22-29-02.png)
+![width:200px](image/2025-11-13-22-29-02.png)
 
 </div>
 </div>
@@ -818,7 +818,7 @@ print("游戏已结束。")
 </div>
 <div class="align-middle-center">
 
-![一个意气风发的工程师，站在控制台前，指挥着一个巨大的、充满活力的游戏引擎 width:400px](../../../lectures/images/2025-11-13-21-34-38.png)
+![一个意气风发的工程师，站在控制台前，指挥着一个巨大的、充满活力的游戏引擎 width:400px](image/2025-11-13-21-34-38.png)
 
 </div>
 </div>
@@ -866,7 +866,7 @@ print("游戏已结束。")
 </div>
 <div class="align-middle-center">
 
-![一个静态的、灰色的游戏世界，在一个巨大的“while”循环符号的注入下，变得色彩斑斓、充满活力 width:400px](../../../lectures/images/2025-11-13-21-57-19.png)
+![一个静态的、灰色的游戏世界，在一个巨大的“while”循环符号的注入下，变得色彩斑斓、充满活力 width:400px](image/2025-11-13-21-57-19.png)
 
 </div>
 </div>
@@ -1191,7 +1191,7 @@ while True:
 
 **过程模型：迭代开发**
 
-![width:200](../../../lectures/images/2025-11-13-22-30-16.png)
+![width:200](image/2025-11-13-22-30-16.png)
 
 </div>
 <div>
@@ -1259,7 +1259,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一个宝箱，里面装着齿轮(代表自动化)、列表和循环的图标 width:400px](../../../lectures/images/2025-11-13-22-08-27.png)
+![一个宝箱，里面装着齿轮(代表自动化)、列表和循环的图标 width:400px](image/2025-11-13-22-08-27.png)
 
 </div>
 </div>
@@ -1308,7 +1308,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一个调色盘，红黄蓝三原色混合在一起，创造出五彩斑斓的色彩 width:400px](../../../lectures/images/2025-11-13-22-17-02.png)
+![一个调色盘，红黄蓝三原色混合在一起，创造出五彩斑斓的色彩 width:400px](image/2025-11-13-22-17-02.png)
 
 </div>
 </div>

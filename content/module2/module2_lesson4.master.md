@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-13-23-34-34.png)
+![bg blur:3px brightness:60%](image/2025-11-13-23-34-34.png)
 
 <style scoped>
 h1{
@@ -160,7 +160,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个调色盘，红黄蓝三原色混合在一起，创造出五彩斑斓的色彩 width:400px](../../../lectures/images/2025-11-14-00-04-38.png)
+![一个调色盘，红黄蓝三原色混合在一起，创造出五彩斑斓的色彩 width:400px](image/2025-11-14-00-04-38.png)
 
 </div>
 </div>
@@ -219,7 +219,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个游戏设计师正在绘制地图、设计角色和剧情 width:400px](../../../lectures/images/2025-11-13-23-41-19.png)
+![一个游戏设计师正在绘制地图、设计角色和剧情 width:400px](image/2025-11-13-23-41-19.png)
 
 </div>
 </div>
@@ -280,7 +280,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![乐高积木，简单的几块积木，拼搭出极其复杂的城堡或飞船 width:400px](../../../lectures/images/2025-11-13-23-42-57.png)
+![乐高积木，简单的几块积木，拼搭出极其复杂的城堡或飞船 width:400px](image/2025-11-13-23-42-57.png)
 
 </div>
 </div>
@@ -582,7 +582,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个开发者在台上兴奋地展示自己的游戏作品 width:400px](../../../lectures/images/2025-11-13-23-53-42.png)
+![一个开发者在台上兴奋地展示自己的游戏作品 width:400px](image/2025-11-13-23-53-42.png)
 
 </div>
 </div>
@@ -641,7 +641,7 @@ h2 {
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![一个人坐在书桌前，头脑中迸发出许多关于自动化的创意火花 width:300px](../../../lectures/images/2025-11-13-23-55-37.png)
+![一个人坐在书桌前，头脑中迸发出许多关于自动化的创意火花 width:300px](image/2025-11-13-23-55-37.png)
 
 <div class="tip" style="margin-top: 20px; font-size: 0.9em;">
 <strong>点子示例</strong><br>
@@ -721,7 +721,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![乐高积木，简单的几块积木，拼搭出极其复杂的城堡或飞船 width:400px](../../../lectures/images/2025-11-13-23-57-23.png)
+![乐高积木，简单的几块积木，拼搭出极其复杂的城堡或飞船 width:400px](image/2025-11-13-23-57-23.png)
 
 </div>
 </div>
@@ -785,7 +785,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一条从山脚到山顶的成长路径图，沿途有变量、条件、循环、项目四个里程碑 width:400px](../../../lectures/images/2025-11-14-00-00-32.png)
+![一条从山脚到山顶的成长路径图，沿途有变量、条件、循环、项目四个里程碑 width:400px](image/2025-11-14-00-00-32.png)
 
 </div>
 </div>
@@ -861,7 +861,7 @@ while True:
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![一个人面对着一团乱麻般的代码，显得很苦恼 width:350px](../../../lectures/images/2025-11-14-00-01-32.png)
+![一个人面对着一团乱麻般的代码，显得很苦恼 width:350px](image/2025-11-14-00-01-32.png)
 
 <p style="margin-top: 1rem; font-size: 0.9em;">这就像一个<strong>杂乱无章的巨大抽屉</strong>，所有东西都堆在一起，找起来费劲，改起来也容易出错。</p>
 
@@ -927,7 +927,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一些代码块被打包成一个个独立的积木，然后被一只手轻松地取用和组合 width:400px](../../../lectures/images/2025-11-14-00-02-49.png)
+![一些代码块被打包成一个个独立的积木，然后被一只手轻松地取用和组合 width:400px](image/2025-11-14-00-02-49.png)
 
 </div>
 </div>

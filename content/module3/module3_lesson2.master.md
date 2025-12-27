@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-21-14-20-34.png)
+![bg blur:3px brightness:60%](image/2025-11-21-14-20-34.png)
 
 <style scoped>
 h1{
@@ -157,7 +157,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个完好的积木和一个破碎的积木并列，形成对比 width:400px](../../../lectures/images/2025-11-21-14-32-37.png)
+![一个完好的积木和一个破碎的积木并列，形成对比 width:400px](image/2025-11-21-14-32-37.png)
 
 </div>
 </div>
@@ -274,7 +274,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个沮丧的人和一个充满好奇心的侦探，对比两种心态 width:400px](../../../lectures/images/2025-11-21-14-34-27.png)
+![一个沮丧的人和一个充满好奇心的侦探，对比两种心态 width:400px](image/2025-11-21-14-34-27.png)
 
 </div>
 </div>
@@ -493,7 +493,7 @@ KeyError: 'market'</code></pre>
 </div>
 <div class="align-middle-center">
 
-![一个侦探拿着放大镜，旁边是一个AI机器人助手正在分析线索 width:400px](../../../lectures/images/2025-11-21-14-36-39.png)
+![一个侦探拿着放大镜，旁边是一个AI机器人助手正在分析线索 width:400px](image/2025-11-21-14-36-39.png)
 
 </div>
 </div>
@@ -795,7 +795,7 @@ AI侦探已经提交了它的分析报告，现在轮到我们扮演“品控主
 </div>
 <div class="align-middle-center">
 
-![一个项目经理在白板前，向一个AI机器人团队分配任务和审查进度 width:400px](../../../lectures/images/2025-11-21-14-38-04.png)
+![一个项目经理在白板前，向一个AI机器人团队分配任务和审查进度 width:400px](image/2025-11-21-14-38-04.png)
 
 </div>
 </div>
@@ -874,7 +874,7 @@ AI侦探已经提交了它的分析报告，现在轮到我们扮演“品控主
 </div>
 <div class="align-middle-center">
 
-![一个宝箱，里面装着侦探帽、放大镜和一个项目管理看板的图标 width:400px](../../../lectures/images/2025-11-21-14-39-21.png)
+![一个宝箱，里面装着侦探帽、放大镜和一个项目管理看板的图标 width:400px](image/2025-11-21-14-39-21.png)
 
 </div>
 </div>
@@ -938,7 +938,7 @@ AI侦探已经提交了它的分析报告，现在轮到我们扮演“品控主
 </div>
 <div class="align-middle-center">
 
-![两段功能相同但风格迥异的代码并列，一段混乱，一段整洁 width:400px](../../../lectures/images/2025-11-21-14-40-44.png)
+![两段功能相同但风格迥异的代码并列，一段混乱，一段整洁 width:400px](image/2025-11-21-14-40-44.png)
 </div>
 </div>
 

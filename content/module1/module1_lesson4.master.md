@@ -41,7 +41,7 @@ ul, ol {
 .align-bottom-right { display: flex; justify-content: flex-end;   align-items: flex-end; }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-10-26-21-45-52.png)
+![bg blur:3px brightness:60%](image/2025-10-26-21-45-52.png)
 
 <style scoped>
 h1 {
@@ -131,7 +131,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![图片描述：人们在产品发布会上庆祝的场景 width:440px](../../../lectures/images/2025-10-26-21-51-15.png)
+![图片描述：人们在产品发布会上庆祝的场景 width:440px](image/2025-10-26-21-51-15.png)
 
 </div>
 </div>
@@ -189,7 +189,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![图片描述：线上画廊，展示着许多点名器应用的截图 width:440px](../../../lectures/images/2025-10-26-21-57-17.png)
+![图片描述：线上画廊，展示着许多点名器应用的截图 width:440px](image/2025-10-26-21-57-17.png)
 
 </div>
 </div>
@@ -253,7 +253,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![图片描述：访谈或Q&A的图标 width:440px](../../../lectures/images/2025-10-26-22-08-08.png)
+![图片描述：访谈或Q&A的图标 width:440px](image/2025-10-26-22-08-08.png)
 
 </div>
 </div>
@@ -311,7 +311,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![图片描述：一个亮起的灯泡，代表“创意”和“头脑风暴” width:440px](../../../lectures/images/2025-10-26-22-10-24.png)
+![图片描述：一个亮起的灯泡，代表“创意”和“头脑风暴” width:440px](image/2025-10-26-22-10-24.png)
 
 </div>
 </div>
@@ -470,7 +470,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![图片描述：代表“创意风暴”的龙卷风或旋涡 width:300px](../../../lectures/images/2025-10-26-23-06-37.png)
+![图片描述：代表“创意风暴”的龙卷风或旋涡 width:300px](image/2025-10-26-23-06-37.png)
 
 </div>
 </div>
@@ -535,7 +535,7 @@ section li {
 </div>
 <div class="align-middle-center">
 
-![图片描述：蒲公英的种子在风中飞舞 width:440px](../../../lectures/images/2025-10-26-22-12-34.png)
+![图片描述：蒲公英的种子在风中飞舞 width:440px](image/2025-10-26-22-12-34.png)
 
 </div>
 </div>
@@ -567,7 +567,7 @@ section li {
 </div>
 <div class="align-middle-center">
 
-![图片描述：一个日式扭蛋机 width:440px](../../../lectures/images/2025-10-26-22-20-35.png)
+![图片描述：一个日式扭蛋机 width:440px](image/2025-10-26-22-20-35.png)
 
 </div>
 </div>
@@ -621,7 +621,7 @@ section li {
 </div>
 <div class="align-middle-center">
 
-![图片描述：舞台幕布拉开，聚光灯打下，代表“好戏上演” width:440px](../../../lectures/images/2025-10-26-23-08-50.png)
+![图片描述：舞台幕布拉开，聚光灯打下，代表“好戏上演” width:440px](image/2025-10-26-23-08-50.png)
 
 </div>
 </div>
@@ -674,7 +674,7 @@ section li {
 </div>
 <div class="align-middle-center">
 
-![图片描述：一座宏伟的桥梁跨越幽深的峡谷 width:330px](../../../lectures/images/2025-10-26-22-25-00.png)
+![图片描述：一座宏伟的桥梁跨越幽深的峡谷 width:330px](image/2025-10-26-22-25-00.png)
 
 </div>
 </div>
@@ -731,7 +731,7 @@ AI是强大的工具，但它无法替代你，因为它缺少：
 </div>
 <div class="align-top-left">
 
-![图片描述：人类与AI机器人握手协作 width:400px](../../../lectures/images/2025-10-26-22-27-58.png)
+![图片描述：人类与AI机器人握手协作 width:400px](image/2025-10-26-22-27-58.png)
 
 </div>
 </div>
@@ -792,7 +792,7 @@ AI是强大的工具，但它无法替代你，因为它缺少：
 </div>
 <div class="align-middle-center">
 
-![图片描述：一个装满金币和技能图标的宝箱 width:440px](../../../lectures/images/2025-10-26-22-37-23.png)
+![图片描述：一个装满金币和技能图标的宝箱 width:440px](image/2025-10-26-22-37-23.png)
 
 </div>
 </div>
@@ -846,7 +846,7 @@ AI是强大的工具，但它无法替代你，因为它缺少：
 </div>
 <div class="align-middle-center">
 
-![代表变量(x)、条件(if)、循环(loop)的编程积木 width:330px](../../../lectures/images/2025-10-26-23-02-43.png)
+![代表变量(x)、条件(if)、循环(loop)的编程积木 width:330px](image/2025-10-26-23-02-43.png)
 
 </div>
 </div>

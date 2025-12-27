@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:1px brightness:60%](../../../lectures/images/2025-11-27-11-25-06.png)
+![bg blur:1px brightness:60%](image/2025-11-27-11-25-06.png)
 
 <style scoped>
 h1{
@@ -159,7 +159,7 @@ h2 {
 </div>
 <div>
 
-![王者荣耀英雄海报拼图 vs 电脑屏幕上整齐的数据流 width:400px](../../../lectures/images/2025-11-27-11-28-34.png)
+![王者荣耀英雄海报拼图 vs 电脑屏幕上整齐的数据流 width:400px](image/2025-11-27-11-28-34.png)
 
 </div>
 </div>
@@ -217,7 +217,7 @@ h2 {
 </div>
 <div>
 
-![一个疲惫的人对着满屏Excel表格抓狂 width:400px](../../../lectures/images/2025-11-27-11-32-09.png)
+![一个疲惫的人对着满屏Excel表格抓狂 width:400px](image/2025-11-27-11-32-09.png)
 
 </div>
 </div>
@@ -288,7 +288,7 @@ h2 {
 </div>
 <div>
 
-![配图占位符](../../../lectures/images/2025-11-27-11-34-15.png)
+![配图占位符](image/2025-11-27-11-34-15.png)
 
 </div>
 </div>
@@ -344,7 +344,7 @@ h2 {
 </div>
 <div>
 
-![数据分析流程图：从原始数据到清洗，再到分析和图表，最后得出灯泡图标的洞察 width:550px](../../../lectures/images/2025-11-27-11-40-48.png)
+![数据分析流程图：从原始数据到清洗，再到分析和图表，最后得出灯泡图标的洞察 width:550px](image/2025-11-27-11-40-48.png)
 
 </div>
 </div>
@@ -480,7 +480,7 @@ Data columns (total 4 columns): (4列)
 </div>
 <div class="align-middle">
 
-![一张Excel表格飞入电脑内存，变成一个带有行列号的矩阵结构 width:400px](../../../lectures/images/2025-11-27-11-43-58.png)
+![一张Excel表格飞入电脑内存，变成一个带有行列号的矩阵结构 width:400px](image/2025-11-27-11-43-58.png)
 
 </div>
 </div>

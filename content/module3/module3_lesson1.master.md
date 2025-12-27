@@ -73,7 +73,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-21-14-57-02.png)
+![bg blur:3px brightness:60%](image/2025-11-21-14-57-02.png)
 
 <style scoped>
 h1{
@@ -170,7 +170,7 @@ while True:
 </div>
 <div class="align-middle-center" style="flex-direction: column;">
 
-![一个人面对着一团乱麻般的代码，显得很苦恼 width:350px](../../../lectures/images/2025-11-21-13-50-46.png)
+![一个人面对着一团乱麻般的代码，显得很苦恼 width:350px](image/2025-11-21-13-50-46.png)
 
 <p style="margin-top: 1rem; font-size: 0.9em;">我们该如何为这个混乱的“抽屉”进行整理和归类呢？</p>
 
@@ -787,7 +787,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一个黑箱，一个箭头指向它（参数），另一个箭头从它指向外部（返回值） width:400px](../../../lectures/images/2025-11-21-14-01-26.png)
+![一个黑箱，一个箭头指向它（参数），另一个箭头从它指向外部（返回值） width:400px](image/2025-11-21-14-01-26.png)
 
 </div>
 </div>
@@ -922,7 +922,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一个瑞士军刀（功能混杂）和一个扳手（功能单一）的对比 width:350px](../../../lectures/images/2025-11-21-14-11-47.png)
+![一个瑞士军刀（功能混杂）和一个扳手（功能单一）的对比 width:350px](image/2025-11-21-14-11-47.png)
 
 </div>
 </div>
@@ -995,7 +995,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一个宝箱，里面装着函数的图标、积木和一个大脑的图标 width:400px](../../../lectures/images/2025-11-21-14-14-40.png)
+![一个宝箱，里面装着函数的图标、积木和一个大脑的图标 width:400px](image/2025-11-21-14-14-40.png)
 
 </div>
 </div>
@@ -1058,7 +1058,7 @@ while True:
 </div>
 <div class="align-middle-center">
 
-![一个程序员和一个AI机器人坐在一起，指着屏幕上的一个红色Bug图标进行讨论 width:400px](../../../lectures/images/2025-11-21-14-18-21.png)
+![一个程序员和一个AI机器人坐在一起，指着屏幕上的一个红色Bug图标进行讨论 width:400px](image/2025-11-21-14-18-21.png)
 </div>
 </div>
 

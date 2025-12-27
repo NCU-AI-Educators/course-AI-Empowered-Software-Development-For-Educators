@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-12-06-03-13-45.png)
+![bg blur:3px brightness:60%](image/2025-12-06-03-13-45.png)
 
 <style scoped>
 h1{
@@ -150,7 +150,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![数据分析师正在工作的场景插图](../../../lectures/images/2025-12-06-03-16-27.png)
+![数据分析师正在工作的场景插图](image/2025-12-06-03-16-27.png)
 
 </div>
 </div>
@@ -363,7 +363,7 @@ h2 {
 
 <div class="align-middle-center">
 
-![](../../../lectures/images/2025-12-06-03-20-14.png)
+![](image/2025-12-06-03-20-14.png)
 
 </div>
 </div>

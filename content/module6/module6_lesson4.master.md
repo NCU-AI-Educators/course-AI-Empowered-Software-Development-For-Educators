@@ -73,7 +73,7 @@ ul, ol {
 
 </style>
 
-![bg blur:2px brightness:60%](../../../lectures/images/2025-12-13-17-30-42.png)
+![bg blur:2px brightness:60%](image/2025-12-13-17-30-42.png)
 
 <style scoped>
 h1{
@@ -446,7 +446,7 @@ h2 {
 </div>
 <div>
 
-![配图：展览会现场，各种屏幕展示着不同的应用，观众在参观](../../../lectures/images/2025-12-13-18-06-02.png)
+![配图：展览会现场，各种屏幕展示着不同的应用，观众在参观](image/2025-12-13-18-06-02.png)
 
 </div>
 </div>
@@ -498,7 +498,7 @@ h2 {
 </div>
 <div>
 
-![配图：Module 6是最后一块拼好的边框，中间空缺着Module 7的核心大脑](../../../lectures/images/2025-12-13-18-05-12.png)
+![配图：Module 6是最后一块拼好的边框，中间空缺着Module 7的核心大脑](image/2025-12-13-18-05-12.png)
 
 </div>
 </div>

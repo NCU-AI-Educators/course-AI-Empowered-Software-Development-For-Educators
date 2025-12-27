@@ -69,7 +69,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:1px brightness:60%](../../../lectures/images/2025-12-13-14-53-06.png)
+![bg blur:1px brightness:60%](image/2025-12-13-14-53-06.png)
 
 <style scoped>
 h1{
@@ -153,7 +153,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![配图：一个餐厅前厅，服务员在餐桌和后厨之间跑来跑去](../../../lectures/images/2025-12-13-14-55-34.png)
+![配图：一个餐厅前厅，服务员在餐桌和后厨之间跑来跑去](image/2025-12-13-14-55-34.png)
 
 </div>
 </div>
@@ -570,7 +570,7 @@ fetch('http://127.0.0.1:8000/menu/红烧肉')
 </div>
 <div class="align-middle-center">
 
-![配图：程序员指挥AI写代码，屏幕上同时显示Python和HTML代码块](../../../lectures/images/2025-12-13-15-05-40.png)
+![配图：程序员指挥AI写代码，屏幕上同时显示Python和HTML代码块](image/2025-12-13-15-05-40.png)
 
 </div>
 </div>
@@ -1230,7 +1230,7 @@ All tests passed!
 
 <div class="align-center">
 
-![width:1000px](../../../lectures/images/2025-12-12-15-18-20.png)
+![width:1000px](image/2025-12-12-15-18-20.png)
 
 </div>
 
@@ -1288,7 +1288,7 @@ All tests passed!
 </div>
 <div>
 
-![配图：左边是单向箭头（线性），右边是螺旋上升箭头（AI迭代），展示开发模式的进化](../../../lectures/images/2025-12-13-15-08-45.png)
+![配图：左边是单向箭头（线性），右边是螺旋上升箭头（AI迭代），展示开发模式的进化](image/2025-12-13-15-08-45.png)
 
 </div>
 </div>

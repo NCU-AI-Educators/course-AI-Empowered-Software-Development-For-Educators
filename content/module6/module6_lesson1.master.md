@@ -69,7 +69,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:1px brightness:60%](../../../lectures/images/2025-12-13-11-49-16.png)
+![bg blur:1px brightness:60%](image/2025-12-13-11-49-16.png)
 
 <style scoped>
 h1{
@@ -158,7 +158,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![配图：一个人守着电脑孤独编程，旁边的人想看却看不了](../../../lectures/images/2025-12-13-11-53-25.png)
+![配图：一个人守着电脑孤独编程，旁边的人想看却看不了](image/2025-12-13-11-53-25.png)
 
 </div>
 </div>
@@ -228,7 +228,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：左边是各种Python脚本图标，右边是浏览器里的App图标，中间有一个箭头](../../../lectures/images/2025-12-13-11-57-07.png)
+![配图：左边是各种Python脚本图标，右边是浏览器里的App图标，中间有一个箭头](image/2025-12-13-11-57-07.png)
 
 </div>
 </div>
@@ -274,7 +274,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：从单机脚本到Web服务的对比图](../../../lectures/images/2025-12-13-13-12-12.png)
+![配图：从单机脚本到Web服务的对比图](image/2025-12-13-13-12-12.png)
 
 </div>
 </div>
@@ -325,7 +325,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：聚焦在Backend部分的架构图，高亮显示API层 width:550px](../../../lectures/images/2025-12-13-13-17-51.png)
+![配图：聚焦在Backend部分的架构图，高亮显示API层 width:550px](image/2025-12-13-13-17-51.png)
 
 </div>
 </div>
@@ -381,7 +381,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：以学科知识机器人为例的前后端分离架构图，左边是手机/电脑，右边是服务器，中间是API](../../../lectures/images/2025-12-13-13-24-09.png)
+![配图：以学科知识机器人为例的前后端分离架构图，左边是手机/电脑，右边是服务器，中间是API](image/2025-12-13-13-24-09.png)
 
 </div>
 </div>
@@ -447,7 +447,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：生动的餐厅场景插画，标注Client, Server, API](../../../lectures/images/2025-12-13-13-28-18.png)
+![配图：生动的餐厅场景插画，标注Client, Server, API](image/2025-12-13-13-28-18.png)
 
 </div>
 </div>
@@ -503,7 +503,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：在此处插入我们将要生成的架构图](../../../lectures/images/2025-12-13-13-32-16.png)
+![配图：在此处插入我们将要生成的架构图](image/2025-12-13-13-32-16.png)
 
 </div>
 </div>
@@ -567,7 +567,7 @@ Web 的**外壳** (模块 1)
 </div>
 <div class="align-middle-center">
 
-![配图：服务员拿着不同颜色的牌子(200绿, 404黄, 500红)示意图](../../../lectures/images/2025-12-13-13-37-17.png)
+![配图：服务员拿着不同颜色的牌子(200绿, 404黄, 500红)示意图](image/2025-12-13-13-37-17.png)
 
 </div>
 </div>
@@ -630,7 +630,7 @@ pip install fastapi uvicorn
 </div>
 <div class="align-middle-center">
 
-![配图：FastAPI的Logo和一个飞快的火箭](../../../lectures/images/2025-12-13-13-40-11.png)
+![配图：FastAPI的Logo和一个飞快的火箭](image/2025-12-13-13-40-11.png)
 
 </div>
 </div>
@@ -801,7 +801,7 @@ if __name__ == "__main__":
 </div>
 <div class="align-middle-center">
 
-![配图：一个酒店走廊，门上挂着不同的牌子(/menu, /order)，门后是不同的房间](../../../lectures/images/2025-12-13-13-43-42.png)
+![配图：一个酒店走廊，门上挂着不同的牌子(/menu, /order)，门后是不同的房间](image/2025-12-13-13-43-42.png)
 
 </div>
 </div>
@@ -917,7 +917,7 @@ if __name__ == "__main__":
 </div>
 <div class="align-middle-center">
 
-![配图：浏览器中显示Hello World JSON结果的截图](../../../lectures/images/2025-12-13-13-49-22.png)
+![配图：浏览器中显示Hello World JSON结果的截图](image/2025-12-13-13-49-22.png)
 
 </div>
 </div>
@@ -984,7 +984,7 @@ if __name__ == "__main__":
 </div>
 <div class="align-middle-center">
 
-![配图：一个医生给服务器看病的卡通图](../../../lectures/images/2025-12-13-14-00-14.png)
+![配图：一个医生给服务器看病的卡通图](image/2025-12-13-14-00-14.png)
 
 </div>
 </div>
@@ -1039,7 +1039,7 @@ if __name__ == "__main__":
 </div>
 <div class="align-middle-center">
 
-![配图：左边是静止的招牌，右边是滚动的电子屏，暗示动态变化](../../../lectures/images/2025-12-13-14-02-26.png)
+![配图：左边是静止的招牌，右边是滚动的电子屏，暗示动态变化](image/2025-12-13-14-02-26.png)
 
 </div>
 </div>
@@ -1233,7 +1233,7 @@ FastAPI 自动为你生成了**交互式文档 (Swagger UI)**。
 </div>
 <div class="align-middle-center">
 
-![配图：Swagger UI界面截图](../../../lectures/images/2025-12-13-14-07-04.png)
+![配图：Swagger UI界面截图](image/2025-12-13-14-07-04.png)
 
 </div>
 </div>
@@ -1300,7 +1300,7 @@ FastAPI 自动为你生成了**交互式文档 (Swagger UI)**。
 </div>
 <div class="align-middle-center">
 
-![配图：一张简单的思维导图，连接浏览器、API和Python代码](../../../lectures/images/2025-12-13-14-10-47.png)
+![配图：一张简单的思维导图，连接浏览器、API和Python代码](image/2025-12-13-14-10-47.png)
 
 </div>
 </div>

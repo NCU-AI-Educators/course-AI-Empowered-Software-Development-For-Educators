@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:3px brightness:60%](../../../lectures/images/2025-11-21-01-07-42.png)
+![bg blur:3px brightness:60%](image/2025-11-21-01-07-42.png)
 
 <style scoped>
 h1{
@@ -160,7 +160,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个混乱但能正常运转的作坊，和一个整洁有序的现代化工厂，形成对比 width:400px](../../../lectures/images/2025-11-21-01-09-09.png)
+![一个混乱但能正常运转的作坊，和一个整洁有序的现代化工厂，形成对比 width:400px](image/2025-11-21-01-09-09.png)
 
 </div>
 </div>
@@ -279,7 +279,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一段像诗一样排版优美的代码，和一段混乱不堪的代码，形成对比 width:400px](../../../lectures/images/2025-11-21-01-12-33.png)
+![一段像诗一样排版优美的代码，和一段混乱不堪的代码，形成对比 width:400px](image/2025-11-21-01-12-33.png)
 
 </div>
 </div>
@@ -340,7 +340,7 @@ h2 {
 </div>
 <div class="align-middle-center">
 
-![一个AI大脑中，有多条路径可以到达终点，但它只选择了一条最直接的路径 width:400px](../../../lectures/images/2025-11-21-01-14-21.png)
+![一个AI大脑中，有多条路径可以到达终点，但它只选择了一条最直接的路径 width:400px](image/2025-11-21-01-14-21.png)
 
 </div>
 </div>
@@ -976,7 +976,7 @@ def show_exits_pythonic(world, player_location):
 </div>
 <div class="align-middle-center">
 
-![一个宝箱，里面装着一个天平（代表权衡）、一份分析报告和一个决策者印章的图标 width:400px](../../../lectures/images/2025-11-21-01-16-16.png)
+![一个宝箱，里面装着一个天平（代表权衡）、一份分析报告和一个决策者印章的图标 width:400px](image/2025-11-21-01-16-16.png)
 
 </div>
 </div>
@@ -1052,7 +1052,7 @@ def show_exits_pythonic(world, player_location):
 </div>
 <div class="align-middle-center">
 
-![一个工具箱，里面装着函数、Bug和审查的图标，旁边是一个即将开始的大型项目蓝图 width:400px](../../../lectures/images/2025-11-21-00-12-59.png)
+![一个工具箱，里面装着函数、Bug和审查的图标，旁边是一个即将开始的大型项目蓝图 width:400px](image/2025-11-21-00-12-59.png)
 
 </div>
 </div>

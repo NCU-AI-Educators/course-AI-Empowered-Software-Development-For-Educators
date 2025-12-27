@@ -68,7 +68,7 @@ ul, ol {
 }
 </style>
 
-![bg blur:2px brightness:60%](../../../lectures/images/2025-11-27-12-35-23.png)
+![bg blur:2px brightness:60%](image/2025-11-27-12-35-23.png)
 
 <style scoped>
 h1{
@@ -157,7 +157,7 @@ h2 {
 </div>
 <div>
 
-![电影海报墙 vs 复杂的K线图和数据报表 width:500px](../../../lectures/images/2025-11-27-12-40-50.png)
+![电影海报墙 vs 复杂的K线图和数据报表 width:500px](image/2025-11-27-12-40-50.png)
 
 </div>
 </div>
@@ -215,7 +215,7 @@ h2 {
 </div>
 <div>
 
-![配图占位符](../../../lectures/images/2025-11-27-12-42-47.png)
+![配图占位符](image/2025-11-27-12-42-47.png)
 
 </div>
 </div>
@@ -617,7 +617,7 @@ must_watch.to_excel('must_watch.xlsx', index=False)
 </div>
 <div>
 
-![一张精美的数据可视化图表（柱状图+折线图） width:450px](../../../lectures/images/2025-11-27-15-28-45.png)
+![一张精美的数据可视化图表（柱状图+折线图） width:450px](image/2025-11-27-15-28-45.png)
 
 </div>
 </div>
