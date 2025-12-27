@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Vision Demo (Florence-2)</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --bg-color: #1e1e1e;
+            --card-bg: #252526;
+            --text-color: #ddd;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* QR Code Section - Hidden on Mobile */
+        .qr-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qr-section img {
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            border: 4px solid white;
+        }
+
+        @media (max-width: 600px) {
+            .qr-section {
+                display: none;
+            }
+
+            .mobile-hidden {
+                display: none;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .desktop-hidden {
+                display: none;
+            }
+        }
+
+        /* Upload Section */
+        .upload-area {
+            border: 2px dashed #444;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
+        /* Result Section */
+        .preview-img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+        }
+
+        .result-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div>
+            <h1>👁️ AI Vision Demo</h1>
+            <div class="subtitle">Powered by Florence-2 VLM (v1.0)</div>
+        </div>
+
+        <!-- Desktop Only: QR Code -->
+        <div class="card qr-section">
+            <img src="/qrcode" alt="Scan to use on mobile">
+            <p>📱 手机扫码体验</p>
+        </div>
+
+        <!-- Main Interaction Area -->
+        <div class="card">
+            <!-- File Upload -->
+            <div class="upload-area" id="drop-zone">
+                <span class="icon">📷</span>
+                <p class="mobile-hidden">点击上传图片</p>
+                <p class="desktop-hidden">点击拍照或上传图片</p>
+                <input type="file" id="file-input" accept="image/*">
+            </div>
+
+            <!-- Webcam Trigger -->
+            <button id="cam-btn" class="btn mobile-hidden" style="background-color: #333; margin-top: 10px;">💻
+                使用电脑摄像头</button>
+
+            <!-- Camera View (Hidden by default) -->
+            <div id="camera-container" class="hidden" style="margin-top: 20px; text-align: center;">
+                <video id="video-feed" autoplay playsinline
+                    style="width: 100%; border-radius: 8px; border: 2px solid #4CAF50;"></video>
+                <button id="snap-btn" class="btn">📸 拍照</button>
+                <button id="close-cam-btn" class="btn" style="background-color: #666;">取消</button>
+            </div>
+
+            <div id="preview-container" class="hidden" style="margin-top: 20px;">
+                <canvas id="canvas" class="hidden"></canvas>
+                <img id="preview-img" class="preview-img" src="" alt="Preview">
+                <button id="upload-btn" class="btn">🚀 开始识别</button>
+            </div>
+        </div>
+
+        <!-- Result Area -->
+        <div id="result-card" class="card hidden">
+            <h3>📝 识别结果</h3>
+            <div id="result-content" class="result-text"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global Audio Helpers
+        window.toggleAudio = function (uniqueId) {
+            const audio = document.getElementById('audio-' + uniqueId);
+            const btn = document.getElementById('btn-' + uniqueId);
+
+            if (audio.paused) {
+                audio.play().catch(e => console.warn("Play failed:", e));
+                btn.innerHTML = '<span>⏸️</span> 点击暂停';
+                btn.style.color = '#ff9800'; // Active color
+                btn.style.borderColor = '#ff9800';
+            } else {
+                audio.pause();
+                btn.innerHTML = '<span>▶️</span> 点击播放语音';
+                btn.style.color = '#4CAF50'; // Default color
+                btn.style.borderColor = '#4CAF50';
+            }
+        };
+
+        window.resetAudio = function (uniqueId) {
+            const btn = document.getElementById('btn-' + uniqueId);
+            btn.innerHTML = '<span>▶️</span> 点击播放语音';
+            btn.style.color = '#4CAF50';
+            btn.style.borderColor = '#4CAF50';
+        };
+
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImg = document.getElementById('preview-img');
+        const uploadBtn = document.getElementById('upload-btn');
+        const resultCard = document.getElementById('result-card');
+        const resultContent = document.getElementById('result-content');
+
+        // Camera Elements
+        const camBtn = document.getElementById('cam-btn');
+        const cameraContainer = document.getElementById('camera-container');
+        const video = document.getElementById('video-feed');
+        const snapBtn = document.getElementById('snap-btn');
+        const closeCamBtn = document.getElementById('close-cam-btn');
+        const canvas = document.getElementById('canvas');
+        let stream = null;
+        let blobToSend = null; // Store blob for upload
+
+        // 1. File Selection
+        fileInput.addEventListener('change', function (e) {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                blobToSend = file; // Set blob
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                    cameraContainer.classList.add('hidden');
+                    resultCard.classList.add('hidden');
+                    stopCamera();
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 2. Open Camera
+        camBtn.addEventListener('click', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                video.srcObject = stream;
+                cameraContainer.classList.remove('hidden');
+                previewContainer.classList.add('hidden');
+                resultCard.classList.add('hidden');
+            } catch (err) {
+                alert("无法访问摄像头: " + err.message);
+            }
+        });
+
+        // 3. Close Camera
+        closeCamBtn.addEventListener('click', () => {
+            stopCamera();
+            cameraContainer.classList.add('hidden');
+        });
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+        }
+
+        // 4. Snap Photo
+        snapBtn.addEventListener('click', () => {
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Convert to Blob
+            canvas.toBlob(blob => {
+                blobToSend = blob;
+                previewImg.src = URL.createObjectURL(blob);
+                previewContainer.classList.remove('hidden');
+                cameraContainer.classList.add('hidden');
+                stopCamera();
+            }, 'image/jpeg');
+        });
+
+        // 5. Upload Logic
+        // 5. Upload Logic
+        // 5. Upload Logic (Refactored for Lesson 26 Pipeline: Vision -> Translation)
+        uploadBtn.addEventListener('click', async function () {
+            if (!blobToSend) return alert("请先选择图片或拍照");
+
+            const formData = new FormData();
+            formData.append('file', blobToSend, "capture.jpg");
+
+            // UI State: Loading Vision
+            uploadBtn.disabled = true;
+            let startTime = Date.now();
+            let timerInterval = setInterval(() => {
+                let elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+                uploadBtn.innerHTML = `<span class="loader"></span> 正在推理中... (${elapsed}s)`;
+            }, 100);
+
+            resultContent.innerText = '';
+
+            try {
+                // ==========================
+                // Step 1: Vision (Florence-2)
+                // ==========================
+                const response = await fetch('/upload', { method: 'POST', body: formData });
+                if (!response.ok) throw new Error('Network error on /upload');
+
+                const data = await response.json();
+
+                // Clear Vision timer
+                clearInterval(timerInterval);
+
+                if (data.error) {
+                    resultContent.innerText = "❌ 错误: " + data.error;
+                    return;
+                }
+
+                const visionTime = data.cost_time;
+                const captionEn = data.caption_en || data.label; // Fallback for old API
+
+                // Display Step 1 Result (Immediate English)
+                resultCard.classList.remove('hidden');
+                resultContent.innerHTML = `
+                    <div style="margin-bottom:10px;">
+                        <strong>🇬🇧 EN:</strong> ${captionEn}
+                        <div style="font-size:0.8em; color:#888;">⏱️ 视觉耗时: ${visionTime}s</div>
+                    </div>
+                `;
+
+                // ==========================
+                // Step 2: Translation (Cloud Endpoint)
+                // ==========================
+                // Check if we need to translate (Lesson 26 feature)
+                // We'll optimistically try to call /translate endpoint.
+
+                uploadBtn.innerHTML = `<span class="loader"></span> 正在翻译中...`;
+
+                try {
+                    const transResponse = await fetch('/translate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: captionEn })
+                    });
+
+                    if (transResponse.ok) {
+                        const transData = await transResponse.json();
+                        const captionZh = transData.caption_zh;
+                        const transTime = transData.cost_time;
+
+                        // Append Chinese Result
+                        const newHtml = `
+                            <hr style="border:0; border-top:1px solid #555; margin:10px 0;">
+                            <div>
+                                <strong>🇨🇳 ZH:</strong> ${captionZh}
+                                <div style="font-size:0.8em; color:#888;">⏱️ 翻译耗时: ${transTime}s</div>
+                            </div>
+                        `;
+                        resultContent.innerHTML += newHtml;
+
+                        // ==========================
+                        // Step 3: TTS (Text-to-Speech)
+                        // ==========================
+                        uploadBtn.innerHTML = `<span class="loader"></span> 正在朗读中...`;
+
+                        try {
+                            const ttsResponse = await fetch('/speak', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ text: captionZh })
+                            });
+
+                            if (ttsResponse.ok) {
+                                const audioBlob = await ttsResponse.blob();
+                                const audioUrl = URL.createObjectURL(audioBlob);
+                                const audio = new Audio(audioUrl);
+
+                                // Enhanced Mobile UI: Big Custom Button + Native Player
+                                const uniqueId = Date.now();
+                                const audioHtml = `
+                                    <div style="margin-top:15px; padding:15px; background:#f4f4f4; border-radius:12px; border:1px solid #ddd; text-align:center;">
+                                        <div style="font-size:12px; color:#666; margin-bottom:10px;">🔊 语音已生成 (CosyVoice2)</div>
+                                        
+                                        <!-- Big Custom Play/Pause Button -->
+                                        <button id="btn-${uniqueId}" onclick="toggleAudio(${uniqueId})" 
+                                            style="width:100%; padding:15px; background:white; border:2px solid #4CAF50; color:#4CAF50; border-radius:8px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:10px; display:flex; align-items:center; justify-content:center; gap:8px;">
+                                            <span>▶️</span> 点击播放语音
+                                        </button>
+
+                                        <!-- Native Player (hidden or small, for seeking) -->
+                                        <audio id="audio-${uniqueId}" onended="resetAudio(${uniqueId})" controls src="${audioUrl}" style="width: 100%; height: 40px; border-radius:20px;"></audio>
+                                    </div>
+                                `;
+                                resultContent.innerHTML += audioHtml;
+
+                                // Reset button state
+                                uploadBtn.innerHTML = `🚀 开始识别`;
+
+                                // Auto-play attempt (with icon update if successful)
+                                audio.play()
+                                    .then(() => {
+                                        // If auto-play succeeds, update the button state immediately
+                                        // We need to wait for the DOM to update first
+                                        setTimeout(() => {
+                                            const btn = document.getElementById('btn-' + uniqueId);
+                                            if (btn) {
+                                                btn.innerHTML = '<span>⏸️</span> 点击暂停';
+                                                btn.style.color = '#ff9800';
+                                                btn.style.borderColor = '#ff9800';
+                                            }
+                                        }, 100);
+                                    })
+                                    .catch(e => console.warn("Auto-play prevented:", e));
+
+                                // Auto-scroll to show the player
+                                requestAnimationFrame(() => {
+                                    resultContent.lastElementChild.scrollIntoView({ behavior: "smooth", block: "end" });
+                                });
+                            }
+                        } catch (ttsErr) {
+                            console.log("TTS failed: " + ttsErr);
+                            uploadBtn.innerHTML = `⚠️ 语音生成失败`;
+                        }
+
+                    } else {
+                        // 404 implies Lesson 25 backend or error
+                        console.log("Translation endpoint not found or error, skipping step 2.");
+                    }
+                } catch (err) {
+                    console.log("Translation step skipped: " + err);
+                }
+
+            } catch (error) {
+                clearInterval(timerInterval);
+                alert('上传失败，请重试');
+                console.error(error);
+                resultContent.innerText = "❌ 系统错误: " + error.message;
+            } finally {
+                // UI State: Reset
+                uploadBtn.disabled = false;
+                uploadBtn.innerText = '🚀 开始识别';
+            }
+        });
+    </script>
+</body>
+
+</html>
