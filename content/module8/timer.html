@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Day Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+        .timer-font { font-family: 'Black Ops One', monospace; }
+    </style>
+</head>
+<body class="bg-black text-white h-screen flex flex-col items-center justify-center overflow-hidden relative">
+
+    <!-- 背景装饰 -->
+    <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600 rounded-full blur-3xl mix-blend-screen"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600 rounded-full blur-3xl mix-blend-screen"></div>
+    </div>
+
+    <!-- 标题 -->
+    <h1 class="text-4xl font-bold mb-8 tracking-widest text-gray-400 z-10">DEMO DAY PITCH</h1>
+
+    <!-- 倒计时主体 -->
+    <div id="timer" class="timer-font text-[12rem] leading-none mb-8 z-10 text-green-500 transition-colors duration-1000">
+        05:00
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="z-10 space-x-4">
+        <button onclick="startTimer()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-8 rounded-lg text-xl transition">▶ 开始</button>
+        <button onclick="pauseTimer()" class="bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-lg text-xl transition">⏸ 暂停</button>
+        <button onclick="resetTimer()" class="bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-lg text-xl transition">↺ 重置</button>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="w-full max-w-4xl h-4 bg-gray-800 rounded-full mt-12 overflow-hidden z-10">
+        <div id="progress" class="h-full bg-green-500 w-full transition-all duration-1000 linear"></div>
+    </div>
+
+    <script>
+        let timeLeft = 300; // 5 minutes in seconds
+        const totalTime = 300;
+        let timerId = null;
+        const timerEl = document.getElementById('timer');
+        const progressEl = document.getElementById('progress');
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // 进度条
+            const percent = (timeLeft / totalTime) * 100;
+            progressEl.style.width = `${percent}%`;
+
+            // 颜色变化
+            if (timeLeft < 60) {
+                timerEl.classList.remove('text-green-500', 'text-yellow-500');
+                timerEl.classList.add('text-red-600', 'animate-pulse');
+                progressEl.classList.add('bg-red-600');
+            } else if (timeLeft < 180) {
+                timerEl.classList.remove('text-green-500');
+                timerEl.classList.add('text-yellow-500');
+                progressEl.classList.add('bg-yellow-500');
+            } else {
+                timerEl.classList.add('text-green-500');
+            }
+        }
+
+        function startTimer() {
+            if (timerId) return;
+            timerId = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timerId);
+                    timerId = null;
+                    alert("时间到！");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerId);
+            timerId = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = totalTime;
+            timerEl.classList.remove('text-red-600', 'text-yellow-500', 'animate-pulse');
+            timerEl.classList.add('text-green-500');
+            progressEl.className = 'h-full bg-green-500 w-full transition-all duration-1000 linear';
+            updateDisplay();
+        }
+
+        // 初始化
+        updateDisplay();
+    </script>
+</body>
+</html>

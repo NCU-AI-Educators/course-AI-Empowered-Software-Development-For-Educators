@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hawk Markdown Reader</title>
+  <!-- Marked.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      chtml: { displayAlign: 'center' },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* Force Centering for MathJax Blocks */
+    .math-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.5em 0;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    mjx-container[display="true"] {
+      display: block !important;
+      margin: 0 !important;
+    }
+
+    /* Base Reset & Layout */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Reading Container */
+    .reader-container {
+      width: 100%;
+      max-width: 800px;
+      background: #fff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    /* Injected CSS Content */
+    /**
+ * @theme-name: Hawk Reader MReader Default
+ * @theme-author: Gemini (Combined Version)
+ * @description: Combined WeChat styles with Ruby and Alert support.
+ */
+
+    :root {
+      /* --- 核心颜色 --- */
+      --primary-color: #017fc0;
+      /* 主题色 */
+      --text-color: #212121;
+      /* 主体文字颜色 */
+      --subtle-text-color: #6c757d;
+      /* 辅助性文字 */
+      --background-color: #fff;
+      /* 默认页面背景色 */
+      --border-color: #e9ecef;
+      /* 边框颜色 */
+
+      /* --- 新增：标题灰色系 --- */
+      --h2-bg-color: #444444;
+      /* H2 背景：深灰色 */
+      --h3-bg-color: #f0f0f0;
+      /* H3 背景：浅灰色 */
+
+      /* --- 代码样式 --- */
+      --code-background: #f8f9fa;
+      /* 代码块背景色 */
+      --code-color: #d63384;
+      /* 行内代码颜色 */
+
+      /* --- 字体 --- */
+      --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', 'PingFang SC',
+        'Hiragino Sans GB', 'Noto Sans CJK SC', 'Microsoft YaHei', Arial, sans-serif;
+      --font-family-mono: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+      /* --- 间距 --- */
+      --spacing-base: 1rem;
+      /* 基础间距单位 (1rem ≈ 16px) */
+    }
+
+    body {
+      font-family: var(--font-family-sans);
+      font-size: 16px;
+      line-height: 1.7;
+      /* 增加行高，提升长文可读性 */
+      letter-spacing: 0.03em;
+      /* 微调字间距 */
+      color: var(--text-color);
+      background-color: var(--background-color);
+      padding: 1.25rem;
+      /* 统一页面边距 (Updated to apply all around) */
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      /* 优化字体渲染 */
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* --- 标题样式 --- */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 1.5rem 0 1.25rem;
+      /* 统一标题垂直间距 */
+    }
+
+    h1 {
+      font-size: 1.6em;
+      text-align: center;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--primary-color);
+      margin-top: 0;
+      /* 文章第一个标题不需要上边距 */
+      color: var(--primary-color);
+      /* 使用主题色，强化视觉引领 */
+      margin-bottom: 2rem;
+      /* 加大与下方内容的间距 */
+    }
+
+    h2 {
+      font-size: 1.4em;
+      text-align: center;
+      color: #fff;
+      /* 白色文字 */
+      background-color: var(--h2-bg-color);
+      /* 深灰色背景 */
+      padding: 0.6rem 1.8rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      /* 恢复居中对齐 */
+      display: table;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 2rem;
+      /* 加大与下方内容的间距 */
+    }
+
+    h3 {
+      font-size: 1.2em;
+      color: var(--text-color);
+      /* 黑色文字 */
+      background-color: var(--h3-bg-color);
+      /* 浅灰色背景 */
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      display: inline-block;
+      /* 使背景贴合文字内容 */
+      margin-bottom: 1.35rem;
+      /* 加大与下方内容的间距 */
+    }
+
+    h4 {
+      font-size: 1.1em;
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      /* 加大与下方内容的间距 */
+    }
+
+    h5 {
+      font-size: 1em;
+      color: var(--subtle-text-color);
+      font-weight: 600;
+      margin-bottom: 1.1rem;
+      /* 加大与下方内容的间距 */
+    }
+
+    h6 {
+      font-size: 1em;
+      font-weight: 700;
+      color: var(--text-color);
+      background-color: var(--code-background);
+      padding: 0.8rem 1rem;
+      border-left: 5px solid var(--primary-color);
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0 1.25rem;
+    }
+
+    /* --- 段落与列表 --- */
+    p {
+      margin: 0 0 var(--spacing-base);
+    }
+
+    ol {
+      padding-left: 2em;
+      margin: 0 0 var(--spacing-base);
+    }
+
+    ul {
+      padding-left: 1.5em;
+      list-style-type: disc;
+      margin: 0 0 var(--spacing-base);
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      word-break: break-word;
+    }
+
+    /* --- 引用与图片 --- */
+    blockquote {
+      margin: 1.5rem 0 0.5rem;
+      padding: 0.8rem 1.2rem 0.01rem;
+      border-left: 5px solid var(--primary-color);
+      background-color: var(--code-background);
+      border-radius: 0 8px 8px 0;
+      color: var(--subtle-text-color);
+    }
+
+    figure {
+      margin: 2rem 0;
+      padding: 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    figcaption {
+      padding: 0.75rem 0;
+      color: var(--subtle-text-color);
+      text-align: center;
+      font-size: 0.9em;
+    }
+
+    /* --- 其他元素 --- */
+    hr {
+      border: none;
+      height: 1px;
+      background-color: var(--border-color);
+      margin: 2.5rem 0;
+    }
+
+    strong {
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    em {
+      font-style: italic;
+      color: var(--primary-color);
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--primary-color);
+      padding-bottom: 2px;
+      transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    a:hover {
+      background-color: var(--primary-color);
+      color: var(--background-color);
+    }
+
+    /* --- 代码块 --- */
+    pre {
+      background-color: var(--code-background);
+      padding: 1.25rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border-color);
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+
+    code {
+      font-family: var(--font-family-mono);
+      background-color: var(--code-background);
+      color: var(--code-color);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      font-size: inherit;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+
+    .footnotes {
+      margin: 2rem 0;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85em;
+      color: var(--subtle-text-color);
+    }
+
+    /* =========================================
+   ADDITIONAL STYLES (From Integrated Demo)
+   ========================================= */
+
+    /* Ruby Pinyin */
+    ruby {
+      font-family: "PingFang SC", sans-serif;
+      ruby-align: center;
+    }
+
+    rt {
+      font-size: 0.6em;
+      color: #888;
+    }
+
+    /* GitHub Alerts */
+    .markdown-alert {
+      padding: 10px 15px;
+      margin-bottom: 16px;
+      border-left: 4px solid;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .markdown-alert-note {
+      background-color: #f7f7f7;
+      border-left-color: #0969da;
+      color: #333;
+    }
+
+    .markdown-alert-tip {
+      background-color: #e6ffed;
+      border-left-color: #2da44e;
+      color: #24292f;
+    }
+
+    .markdown-alert-warning {
+      background-color: #fff8c5;
+      border-left-color: #bf8700;
+      color: #24292f;
+    }
+
+    .markdown-alert-title {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="reader-container" id="content-area">
+    <!-- Content will be injected here -->
+  </div>
+
+  <!-- Raw Markdown Data (Hidden) -->
+  <script type="text/markdown" id="raw-markdown">
+#  [人]{rén}[工]{gōng}[智]{zhì}[能]{néng}  80年“家族进化史”
+
+> [!NOTE]
+> **导读**：ChatGPT 并非一夜成名，而是 AI 江湖 80 年恩怨情仇的结晶。符号主义、联结主义、行为主义——这三大门派如何从“分道扬镳”走向“殊途同归”？本文用一张超长全景图，带你穿越两次 AI 寒冬，看懂人工智能是如何一步步进化出“灵魂”的。
+>
+> *阅读时间：约 8 ~ ∞ 分钟*
+
+---
+
+## 🧊 序章：AI江湖的三大门派
+
+在故事开始之前，我们得先认识一下这个江湖里的三个“老祖宗”。现在的每一个 AI 模型，身上都流淌着这三家的血液。
+
+### 第一派：符号主义 (Symbolism)
+**“逻辑严谨的老学究”**
+
+![插入图片: Symbolism.png](images/Symbolism.png)
+
+> [!TIP]
+> **核心信条**：智能就是符号的逻辑运算。
+
+*   **绝招**：如果...那么... (IF-THEN)。
+*   **特点**：严谨、可解释，但死板。就像个查字典的翻译官，虽然不懂语义，但翻得字正腔圆。
+
+### 第二派：联结主义 (Connectionism)
+**“直觉敏锐的仿生人”**
+
+![插入图片: Connectionism.png](images/Connectionism.png)
+
+> [!TIP]
+> **核心信条**：智能源于神经元的连接。
+
+*   **绝招**：反向传播 (Backpropagation)。
+*   **特点**：模仿人脑结构，不讲道理（黑盒），但能从海量数据中练出直觉。就像老工匠，一眼就能看出问题所在。
+
+### 第三派：行为主义 (Behaviorism)
+**“实战进化的冒险家”**
+
+![插入图片: Behaviorism.png](images/Behaviorism.png)
+
+> [!TIP]
+> **核心信条**：智能是在与环境交互中“打”出来的。
+
+*   **绝招**：强化学习 (Reinforcement Learning)。
+*   **特点**：通过奖惩机制进化。就像训练小狗，做对了给骨头，做错了打屁股，慢慢就练成了绝技。
+
+---
+
+## 🟢 第一代：符号与推理 (1940-1979)
+
+**“我们以为解决了逻辑，就解决了智能。”**
+
+故事的开端是乐观的。1956年的达特茅斯会议上，几位天才聚在一起喝了个下午茶，就拍板决定了“人工智能”这个名字。
+
+### 🌟 只有2700个晶体管的奇迹
+
+那时候的 AI 主要是**符号主义**的天下。但在此之前，先驱们已经铺平了道路。
+
+![插入图片: M-P Neuron.png](images/M-P%20Neuron.png)
+*(1943: 神经与逻辑的第一次握手)*
+
+![插入图片: Cybernetics.png](images/Cybernetics.png)
+*(1948: 控制论提出反馈机制)*
+
+![插入图片: Turing Test.png](images/Turing%20Test.png)
+*(1950: 图灵测试定义智能)*
+
+随后，达特茅斯会议开启了 AI 的元年。
+
+![插入图片: Dartmouth Workshop.png](images/Dartmouth%20Workshop.png)
+
+![插入图片: Logic Theorist.png](images/Logic%20Theorist.png)
+
+比如 1956 年的 **Logic Theorist**，它证明了罗素《数学原理》里的38条定理。当时的人们惊呼：机器竟然会思考了！
+
+紧接着，符号主义的工具箱日益丰富：
+
+![插入图片: LISP.png](images/LISP.png)
+*(1958: LISP语言诞生)*
+
+同时，联结主义也萌发了幼芽：
+
+![插入图片: Perceptron.png](images/Perceptron.png)
+*(1958: 感知机出现)*
+
+### ❄️ 一本书引发的“血案”
+
+好景不长，先是机器翻译被泼冷水：
+
+![插入图片: ALPAC Report.png](images/ALPAC%20Report.png)
+
+接着，**联结主义**因为算力不足和理论缺陷遭受了重创。
+
+![插入图片: Minsky's Critique.png](images/Minsky's%20Critique.png)
+
+> [!WARNING]
+> **寒冬降临**
+>
+> 1969年，大佬明斯基写了一本书 **《Perceptrons》**，证明当时的神经网络连简单的“异或(XOR)”逻辑都搞不定。这本书直接给联结主义按下了“暂停键”，导致神经网络的研究经费枯竭，进入了长达15年的第一次 AI 寒冬。
+
+---
+
+## 🟡 第二代：知识与专家 (1980-2009)
+
+**“既然没法模拟大脑，那就先把专家的经验存进去。”**
+
+到了80年代，大家不再幻想造出通用的“人脑”，而是务实地搞起了**“专家系统”**。
+
+### 💊 比医生还准的程序
+
+![插入图片: MYCIN.png](images/MYCIN.png)
+
+**MYCIN** 系统就是这时的代表。它内置了600多条规则，诊断血液病的准确率击败了人类初级医生。这也让企业界看到了商业价值：
+
+![插入图片: XCON.png](images/XCON.png)
+
+**XCON** 系统帮 DEC 公司配置电脑，一年省下几千万美元。
+
+### 🔥 神经网络的逆袭与第二次寒冬
+
+虽然符号主义正如日中天，但联结主义的火种并未熄灭。
+
+1986年，Hinton 老爷子（刚拿了诺贝尔奖那位）带着 **反向传播(Backpropagation)** 杀回来了！它让多层神经网络具备了学习能力，打破了明斯基的诅咒。
+
+![插入图片: Backpropagation.png](images/Backpropagation.png)
+
+**📉 泡沫破裂 (1987-1993)**
+
+然而，好戏还没开场，市场就崩了。80年代末发生了一场“Lisp 机器崩盘”。由于家用电脑（PC）的性能追上了昂贵的专用 AI 硬件，导致市场瞬间崩塌。加上专家系统维护成本极高（规则太多会打架），AI 再次被资本抛弃，进入了**第二次寒冬**。
+
+### 🌉 跨越寒冬的火种 (1990s - 2000s)
+
+虽然资金没了，但真正硬核的研究者留了下来。在漫长的沉寂期里，三大门派都在暗中积蓄力量：
+
+1.  **行为主义**：1989年，Watkins 提出了 **Q-Learning**，让强化学习有了现代形式。
+    ![插入图片: Q-Learning.png](images/Q-Learning.png)
+    *(1989: 强化学习的现代形式)*
+
+2.  **符号主义**：1997年，IBM 的 **Deep Blue (深蓝)** 击败了人类棋王卡斯帕罗夫。这是符号主义最后的辉煌，也是暴力计算的极限。
+    ![插入图片: Deep Blue.png](images/Deep%20Blue.png)
+
+3.  **联结主义**：1997年，**LSTM** 诞生，让神经网络有了记忆；1998年，LeCun 的 **LeNet-5** 点亮了计算机视觉。
+    ![插入图片: LSTM.png](images/LSTM.png)
+    *(1997: LSTM 让神经网络有了记忆)*
+    
+    ![插入图片: LeNet-5.png](images/LeNet-5.png)
+    *(1998: CNN 祖师爷 LeNet-5)*
+
+**☁️ 沉默的蓄力期 (1999-2011)**
+在世纪之交的这十几年里，AI 似乎在媒体上消失了。但这其实是**“蓄力期”**。摩尔定律在疯狂提升算力，互联网在疯狂积累数据。只等一个火星，就能引爆下一次革命。
+
+---
+
+## 🔵 第三代：学习与涌现 (2010-至今)
+
+**“不要你觉得，我要数据觉得。”**
+
+时间来到 2012 年，AlexNet 的出现如同寒武纪大爆发，**深度学习**（多层神经网络+大数据+GPU）正式接管比赛。
+
+### 👁️ 眼睛睁开了
+
+![插入图片: AlexNet.png](images/AlexNet.png)
+
+**AlexNet** 证明了，只要给神经网络喂足够多的图，它就能自己学会什么是猫、什么是狗，完全不需要人类教它“猫有尖耳朵”这种规则。
+
+随后，各种模型如雨后春笋般涌现：
+
+![插入图片: DQN (Atari).png](images/DQN%20(Atari).png)
+*(2013: 玩游戏的 AI)*
+
+![插入图片: GAN.png](images/GAN.png)
+*(2014: 左右互搏的 GAN)*
+
+![插入图片: ResNet.png](images/ResNet.png)
+*(2015: 突破深度的 ResNet)*
+
+### 🤖 左右互搏
+
+![插入图片: AlphaGo.png](images/AlphaGo.png)
+
+2016年，**AlphaGo** 横空出世。它其实是个“混血儿”：既有符号主义的搜索树，又有联结主义的直觉网，还有行为主义的自我对弈。三大门派合一，人类棋手再无胜算。
+
+### 🗣️ AI 学会了说人话
+
+最后就是我们熟悉的 **ChatGPT** 了。
+
+![插入图片: ChatGPT.png](images/ChatGPT.png)
+
+它之所以这么强，是因为它不仅有了**大模型**（联结主义的底子），还经过了 **RLHF**（人类反馈强化学习，行为主义的教鞭）的调教。它从一个性格古怪的博士，变成了一位彬彬有礼的教授。
+
+在此期间，还有两个关键推手：
+
+![插入图片: Transformer.png](images/Transformer.png)
+*(2017: AI 此时才真正读懂了语言)*
+
+![插入图片: GPT-3.png](images/GPT-3.png)
+*(2020: 暴力美学的胜利)*
+
+甚至逻辑推理也在回归：
+
+![插入图片: Chain-of-Thought.png](images/Chain-of-Thought.png)
+*(2023: 思维链让神经网络学会推理)*
+
+> [!NOTE]
+> **缩放定律 (Scaling Laws)**
+>
+> 为什么模型越大越聪明？Jared Kaplan 提出的定律告诉我们，智力的增长是可以预测的：
+>
+> $$ L(N) \propto N^{-\gamma} $$
+>
+> 只要参数量 $N$ 指数级增加，模型的损失 $L$ 就会幂律下降。当跨过某个临界点，**涌现 (Emergence)** 就发生了。
+
+---
+
+## 🚀 结语：下一站，具身智能
+
+看完这 80 年，你会发现，AI 的发展其实就是**符号、联结、行为**这三大门派不断打架、又不断融合的过程。
+
+![插入图片: Sora.png](images/Sora.png)
+
+未来会怎样？
+
+![插入图片: Embodied AI.png](images/Embodied%20AI.png)
+
+**Sora 2** 已经开始理解物理世界，**具身智能 (Embodied AI)** 正在让 AI 长出手脚。也许用不了多久，那个在屏幕里陪你聊天的 AI，就能走出屏幕，在真实世界里为你倒一杯咖啡。
+
+
+
+    </script>
+
+  <script>
+    // 1. Config & Setup
+    const rawMarkdown = document.getElementById('raw-markdown').textContent;
+    const contentArea = document.getElementById('content-area');
+
+    try {
+      // 2. Custom Markdown Configuration (Alerts & Pinyin)
+      const renderer = new marked.Renderer();
+      const originBlockquote = renderer.blockquote.bind(renderer);
+
+      renderer.blockquote = function (quote) {
+        // Check for Alert patterns
+        if (quote.includes('[!NOTE]') || quote.includes('[!TIP]') || quote.includes('[!WARNING]')) {
+          let type = 'note';
+          let title = 'Note';
+
+          if (quote.includes('[!TIP]')) { type = 'tip'; title = 'Tip'; }
+          if (quote.includes('[!WARNING]')) { type = 'warning'; title = 'Warning'; }
+
+          const content = quote
+            .replace(/\[!NOTE\]/g, '')
+            .replace(/\[!TIP\]/g, '')
+            .replace(/\[!WARNING\]/g, '')
+            .replace(/<p>\s*<strong>\s*<\/strong>\s*<\/p>/, '');
+
+          return `<div class="markdown-alert markdown-alert-${type}">
+                                <div class="markdown-alert-title">${title}</div>
+                                ${content}
+                            </div>`;
+        }
+        return originBlockquote(quote);
+      };
+
+
+      marked.use({ renderer: renderer });
+
+      // 3. Pre-process Custom Syntax
+      // 3a. Protect Math (LaTeX)
+      const mathPlaceholders = [];
+      // Regex to match $$...$$ (Block) or $...$ (Inline)
+      // We differentiate them to wrap blocks in <div>
+      let protectedMarkdown = rawMarkdown.replace(/(\$\$[\s\S]*?\$\$)|((?<!\\)\$[\s\S]*?(?<!\\)\$)/g, (match, blockMath, inlineMath) => {
+        const id = `MATH_PLACEHOLDER_${mathPlaceholders.length}`;
+        mathPlaceholders.push({ id, content: match });
+
+        if (blockMath) {
+          // It's a block math $$...$$
+          // Return a HTML block wrapper so Marked.js doesn't wrap it in <p>
+          return `<div class="math-block">${id}</div>`;
+        } else {
+          // Inline math $...$
+          return id;
+        }
+      });
+
+      // 3b. Ruby Pinyin: [Text]{pinyin} -> <ruby>Text<rt>pinyin</rt></ruby>
+      protectedMarkdown = protectedMarkdown.replace(/\[(.*?)\]\{(.*?)\}/g, '<ruby>$1<rt>$2</rt></ruby>');
+
+      // 4. Render
+      let html = marked.parse(protectedMarkdown);
+
+      // 5. Restore Math
+      mathPlaceholders.forEach(item => {
+        html = html.replace(item.id, item.content);
+      });
+
+      contentArea.innerHTML = html;
+
+      // 6. Trigger MathJax
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise([contentArea]).catch((err) => console.log('MathJax error:', err));
+      }
+
+    } catch (e) {
+      console.error('Render Error:', e);
+      contentArea.innerHTML = `<h1 style="color:red">Render Error</h1><p>${e.message}</p>`;
+    }
+
+    // 7. Auto-Scroll Logic (Teleprompter Mode)
+    let isAutoScrolling = false;
+    let scrollInterval;
+    const SCROLL_SPEED = 1;
+    const SCROLL_INTERVAL = 20;
+
+    function toggleAutoScroll() {
+      if (isAutoScrolling) {
+        clearInterval(scrollInterval);
+        isAutoScrolling = false;
+        showToast("⏸ Paused");
+      } else {
+        scrollInterval = setInterval(() => {
+          if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+            clearInterval(scrollInterval);
+            isAutoScrolling = false;
+            showToast("⏹ Finished");
+          } else {
+            window.scrollBy(0, SCROLL_SPEED);
+          }
+        }, SCROLL_INTERVAL);
+        isAutoScrolling = true;
+        showToast("▶️ Auto-Scrolling");
+      }
+    }
+
+    // Expose to window for parent frame control
+    window.toggleAutoScroll = toggleAutoScroll;
+
+    function showToast(msg) {
+      let toast = document.getElementById('scroll-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'scroll-toast';
+        toast.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(0,0,0,0.7);
+                    color: white;
+                    padding: 15px 30px;
+                    border-radius: 30px;
+                    font-size: 24px;
+                    z-index: 9999;
+                    pointer-events: none;
+                    transition: opacity 0.5s;
+                `;
+        document.body.appendChild(toast);
+      }
+      toast.innerText = msg;
+      toast.style.opacity = '1';
+
+      if (toast.timeout) clearTimeout(toast.timeout);
+      toast.timeout = setTimeout(() => {
+        toast.style.opacity = '0';
+      }, 1000);
+    }
+
+    // Global Key Listener
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        toggleAutoScroll();
+      }
+    });
+
+    // PostMessage Listener (For Parent Control)
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.action === 'toggleScroll') {
+        toggleAutoScroll();
+      }
+    });
+  </script>
+</body>
+
+</html>

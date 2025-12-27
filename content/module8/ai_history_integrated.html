@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4: Intelligent Fusion (智慧融合)</title>
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <!-- Marked for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/marked.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            background-color: #0b0c15;
+            color: #ffffff;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            height: 100vh;
+        }
+
+        /* --- Split Layout --- */
+        .left-panel {
+            flex: 65%;
+            /* 65% Width for Chart */
+            position: relative;
+            border-right: 1px solid #333;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .right-panel {
+            flex: 35%;
+            /* 35% Width for Article */
+            background: #111;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+
+        /* --- Split Divider --- */
+        .split-divider {
+            position: absolute;
+            left: 65%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: left 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .toggle-btn {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border: 1px solid #555;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background: #4facfe;
+            border-color: #4facfe;
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.6);
+        }
+
+        .toggle-btn i {
+            font-size: 20px;
+        }
+
+        /* --- Right Panel Elements --- */
+        .qr-container {
+            margin-bottom: 20px;
+            text-align: center;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+        }
+
+        .qr-container p {
+            margin: 5px 0 0 0;
+            color: #333;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .phone-frame {
+            width: 90%;
+            max-width: 550px;
+            /* Wider for better reading */
+            height: 85vh;
+            /* Taller */
+            /* iOS Style Frame */
+            max-height: 75vh;
+            background: #fff;
+            border-radius: 40px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            border: 10px solid #222;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-header {
+            height: 44px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        .phone-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+            background: #fff;
+        }
+
+        /* Markdown Styling inside Phone (WeChat Mimic) */
+        .phone-content-iframe {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        .audio-player-container {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        audio {
+            width: 80%;
+            border-radius: 30px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- Chart Styles (Right Panel) --- */
+        #chart-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .title-overlay {
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            pointer-events: auto;
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        .title-overlay:hover h1 {
+            text-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin: 0;
+            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        p.subtitle {
+            color: #8892b0;
+            font-size: 16px;
+            margin-top: 5px;
+            max-width: 600px;
+            line-height: 1.4;
+        }
+
+        #back-btn {
+            position: absolute;
+            top: 150px;
+            left: 10%;
+            pointer-events: auto;
+            display: none;
+            margin: 0;
+            padding: 8px 16px;
+            background: rgba(79, 172, 254, 0.2);
+            border: 1px solid #4facfe;
+            border-radius: 20px;
+            color: #4facfe;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        #back-btn:hover {
+            background: #4facfe;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.5);
+        }
+
+        #chart-subtitle {
+            position: absolute;
+            top: 150px;
+            right: 15%;
+            /* Move to right side */
+            left: auto;
+            transform: none;
+            text-align: right;
+            margin: 0;
+            margin: 0;
+            color: #4facfe;
+            font-size: 20px;
+            font-weight: bold;
+            display: none;
+            z-index: 100;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(79, 172, 254, 0.4);
+            white-space: nowrap;
+        }
+
+        .legend-box {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(20, 20, 30, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            pointer-events: none;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .legend-item {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        /* --- Knowledge Card Modal --- */
+        #knowledge-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(20, 25, 40, 0.95);
+            width: 80%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(79, 172, 254, 0.2);
+            padding: 30px;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            color: #888;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        #modal-title {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+            background: linear-gradient(90deg, #fff, #bbb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
+        }
+
+        #modal-image-placeholder {
+            width: 100%;
+            min-height: 100px;
+            background: transparent;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 14px;
+            flex-shrink: 1;
+        }
+
+        #modal-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #ddd;
+            text-align: justify;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LEFT PANEL: CHART -->
+    <div class="left-panel" id="left-panel">
+        <div class="title-overlay">
+            <h1>AI 三大范式的演进与融合</h1>
+            <p class="subtitle">The Great Convergence: Symbolism, Connectionism, and
+                Behaviorism<br>从“分道扬镳”到“殊途同归”，见证三代AI浪潮的螺旋上升</p>
+        </div>
+
+        <button id="back-btn">&larr; 返回全览 (Back to Overview)</button>
+        <h2 id="chart-subtitle"></h2>
+
+        <div class="legend-box">
+            <div class="legend-item">
+                <div class="dot" style="background:#FF6B6B"></div>行为主义 (Behaviorism): 强化学习
+            </div>
+            <div class="legend-item">
+                <div class="dot" style="background:#00f2fe"></div>联结主义 (Connectionism): 神经网络
+            </div>
+            <div class="legend-item">
+                <div class="dot" style="background:#FF9F1C"></div>符号主义 (Symbolism): 逻辑推理
+            </div>
+        </div>
+
+        <div id="chart-container"></div>
+
+        <!-- Knowledge Modal (Nested) -->
+        <div id="knowledge-modal">
+            <div class="modal-content">
+                <div class="modal-close">&times;</div>
+                <h2 id="modal-title">Concept Title</h2>
+                <div id="modal-image-placeholder">
+                    [ Illustration Slot ]
+                </div>
+                <div id="modal-desc">Description goes here...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIVIDER CONTROLS -->
+    <div class="split-divider" id="split-divider">
+        <div class="toggle-btn" onclick="toggleLayout('left')" title="Expand Left (Chart)">
+            <i class="material-icons">chevron_right</i>
+        </div>
+        <div class="toggle-btn" onclick="toggleLayout('right')" title="Expand Right (Article)">
+            <i class="material-icons">chevron_left</i>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: PHONE + QR -->
+    <div class="right-panel" id="right-panel">
+        <div class="qr-container">
+            <div id="qrcode"></div>
+            <p>扫码阅读全文</p>
+        </div>
+
+        <div class="phone-frame">
+            <div class="phone-header">Hawk 自制 Markdown 阅读器</div>
+            <iframe id="article-frame" class="phone-content-iframe"></iframe>
+        </div>
+
+        <div class="audio-player-container">
+            <audio controls>
+                <source src="voice/voice.m4a" type="audio/mp4">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // --- LAYOUT LOGIC ---
+        function toggleLayout(direction) {
+            const leftPanel = document.getElementById('left-panel');
+            const rightPanel = document.getElementById('right-panel');
+            const divider = document.getElementById('split-divider');
+
+            // Check current state by checking inline styles or computed styles
+            // We use inline styles for logic state
+
+            if (direction === 'left') {
+                // User clicked "Right Arrow" > (meaning "Move divider right" -> Expand Left Content)
+                // Wait, if the icon is 'chevron_right', closer key semantics:
+                // User wants to see the content on the LEFT more? Or Move to the Right?
+                // Let's stick to standard split pane behavior:
+                // Button on divider pointing Right (>) usually means "Collapses Left Panel" or "Expands Left Panel"?
+                // Let's assume the user visual intent: Arrow pointing Right -> Expand the Left Panel to fill screen.
+
+                if (leftPanel.style.flexBasis === '100%') {
+                    // Already full, Restore
+                    resetLayout();
+                } else {
+                    // Maximize Left Panel
+                    leftPanel.style.flex = '100% 0 0';
+                    rightPanel.style.flex = '0% 0 0';
+                    divider.style.left = '98%'; // Move buttons to far right
+                    setTimeout(() => myChart && myChart.resize(), 550);
+                }
+            } else if (direction === 'right') {
+                // User clicked "Left Arrow" < (meaning "Expand Right Content")
+
+                if (rightPanel.style.flexBasis === '100%') {
+                    // Restore
+                    resetLayout();
+                } else {
+                    // Maximize Right Panel
+                    leftPanel.style.flex = '0% 0 0';
+                    rightPanel.style.flex = '100% 0 0';
+                    divider.style.left = '2%'; // Move buttons to far left
+                }
+            }
+        }
+
+        function resetLayout() {
+            const leftPanel = document.getElementById('left-panel');
+            const rightPanel = document.getElementById('right-panel');
+            const divider = document.getElementById('split-divider');
+
+            leftPanel.style.flex = '65%';
+            rightPanel.style.flex = '35%';
+            divider.style.left = '65%';
+            setTimeout(() => myChart && myChart.resize(), 550);
+        }
+    </script>
+
+    <script>
+        // --- RIGHT SIDE LOGIC (Article & Markdown) ---
+        try {
+            // 1. Generate QR Code
+            new QRCode(document.getElementById("qrcode"), {
+                text: "https://mp.weixin.qq.com/s/njptoy5mvyuo6hfYPHmzHQ",
+                width: 128,
+                height: 128
+            });
+
+            // 2. Load Article Frame
+            const iframe = document.getElementById('article-frame');
+            // Use the local MReader HTML in module8
+            iframe.src = "./AI_Evolution_WeChat_Reader.html";
+
+        } catch (e) {
+            console.error('Error init right panel:', e);
+        }
+
+        // --- SPACEBAR AUTO-SCROLL LOGIC ---
+        let isAutoScrolling = false;
+        let scrollInterval;
+        const SCROLL_SPEED = 1; // Pixels per tick
+        const SCROLL_INTERVAL = 20; // ms
+
+        function toggleAutoScroll() {
+            const iframe = document.getElementById('article-frame');
+            if (!iframe || !iframe.contentWindow) return;
+
+            if (isAutoScrolling) {
+                // Stop
+                clearInterval(scrollInterval);
+                isAutoScrolling = false;
+                showToast("⏸ Paused");
+            } else {
+                // Start
+                // Ensure we focus the iframe so keys work, or just scroll it
+                scrollInterval = setInterval(() => {
+                    const win = iframe.contentWindow;
+                    if (win.toggleAutoScroll) {
+                        // Use the Iframe's internal logic if available
+                        if (!isAutoScrolling) {
+                            clearInterval(scrollInterval);
+                            return;
+                        }
+                    } else {
+                        // Fallback logic for basic pages (though Reader logic handles its own status)
+                        // But if we simply call Reader's toggle function once, we don't need this interval here!
+                        // Wait, the integrated demo controlled the scroll here.
+                        // The New Reader has its own Scroll Logic (toggleAutoScroll inside iframe).
+                        // So we should just call that function and let it handle the interval.
+                    }
+                }, SCROLL_INTERVAL);
+
+                // NEW LOGIC: Call the Child's toggleAutoScroll directly
+                if (iframe.contentWindow && iframe.contentWindow.toggleAutoScroll) {
+                    iframe.contentWindow.toggleAutoScroll();
+                    // Sync local state for visual feedback (Toast)
+                    // But the child also shows toast. We might duplicate toasts.
+                    // The user's request is integration.
+                    // Let's rely on the Child's toast and logic.
+                    // But we still need to capture Spacebar in Parent and forward it.
+                }
+            }
+        }
+
+        // Revised Global Key Listener
+        // Revised Global Key Listener
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                const iframe = document.getElementById('article-frame');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({ action: 'toggleScroll' }, '*');
+                }
+            }
+        });
+
+        // Visual Feedback
+        function showToast(msg) {
+            let toast = document.getElementById('scroll-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'scroll-toast';
+                toast.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(0,0,0,0.7);
+                    color: white;
+                    padding: 15px 30px;
+                    border-radius: 30px;
+                    font-size: 24px;
+                    z-index: 2000;
+                    pointer-events: none;
+                    transition: opacity 0.5s;
+                `;
+                document.querySelector('.right-panel').appendChild(toast); // Append to right panel
+            }
+            toast.innerText = msg;
+            toast.style.opacity = '1';
+
+            // Clear previous timeout if exists
+            if (toast.timeout) clearTimeout(toast.timeout);
+
+            toast.timeout = setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 1000);
+        }
+
+    </script>
+
+    <script>
+        // --- LEFT SIDE LOGIC (Original ECharts Timeline) ---
+        console.log('Integrated Timeline Loaded');
+        var chartDom = document.getElementById('chart-container');
+        var myChart = echarts.init(chartDom, 'dark');
+        var option;
+        var currentStage = 'overview';
+
+        // --- Data Definitions ---
+        const catMap = {
+            'Symbolism (符号主义)': 0,
+            'Connectionism (联结主义)': 1,
+            'Behaviorism (行为主义)': 2
+        };
+
+        const colors = ['#FF9F1C', '#00f2fe', '#FF6B6B'];
+
+        // --- Paradigm Definitions ---
+        const paradigmDefs = {
+            0: {
+                name: "Symbolism\n(符号主义)", enName: "Symbolism", hexColor: colors[0],
+                desc: "【一句话点题】\n逻辑严谨的老学究。\n\n【核心概念】\n智能 = 符号 + 逻辑。认为人类智慧的核心是“逻辑推理”，只要把现实世界的事物抽象成符号，再定好运算规则（IF-THEN），机器就能像人一样思考。\n\n【教学比喻】\n就像一个时刻带着字典和语法书的翻译官，虽然他根本不懂这句外语是什么意思，但他能完美地根据语法规则把单词排列组合，翻得字正腔圆。"
+            },
+            1: {
+                name: "Connectionism\n(联结主义)", enName: "Connectionism", hexColor: colors[1],
+                desc: "【一句话点题】\n直觉敏锐的仿生人。\n\n【核心概念】\n智能 = 神经元 + 连接。模仿人脑的神经结构，不讲究复杂的逻辑规则，而是通过海量数据“训练”出一个复杂的神经网络。它是个黑盒子，你很难解释它为什么懂，但它就是懂。\n\n【教学比喻】\n就像一个老木匠，他可能说不出什么力学公式（逻辑），但凭借多年手感（数据训练），一眼就能看出桌子哪里不平。"
+            },
+            2: {
+                name: "Behaviorism\n(行为主义)", enName: "Behaviorism", hexColor: colors[2],
+                desc: "【一句话点题】\n实战进化的冒险家。\n\n【核心概念】\n智能 = 感知 + 行动 + 奖惩。认为智能无需预设知识，而是在与环境的交互（试错）中诞生。做对了给糖吃（Reward），做错了打手板（Penalty），慢慢就学会了。\n\n【教学比喻】\n就像训练家里的小狗，你不需要跟它讲坐下的物理原理，只需要在它做对动作时给块骨头，多试几次它就学会了。"
+            }
+        };
+
+        // 1. Overview Data
+        const overviewData = [
+            {
+                name: "Generation 1: Computational Logic\n(第一代: 符号与推理)", id: "gen1", cat: "Symbolism (符号主义)", yVal: 0, symbolSize: 100,
+                desc: "【逻辑的统治】\n主导：符号主义。\n特征：认为智能是符号的操作。AI的逻辑基石。\n分合：三者分道扬镳，符号主义在底层奠定基础。",
+                range: [1940, 1979], color: '#FF9F1C'
+            },
+            {
+                name: "Generation 2: Knowledge Engineering\n(第二代: 知识与专家)", id: "gen2", cat: "Symbolism (符号主义)", yVal: 0.5, symbolSize: 120,
+                desc: "【寒冬与蓄力】\n主导：符号主义盛极而衰(Lisp崩盘引发第二次寒冬)，联结主义暗中积蓄力量。\n特征：专家系统泡沫破裂，但各种“火种”(LSTM, CNN, RL)在沉默中诞生。\n位面：从知识工程的幻灭，迈向大数据时代的黎明。",
+                range: [1980, 2009], color: '#B6E889'
+            },
+            {
+                name: "Generation 3: Emergent Intelligence\n(第三代: 学习与涌现)", id: "gen3", cat: "Connectionism (联结主义)", yVal: 1.5, symbolSize: 140,
+                desc: "【大融合时代】\n主导：联结主义(大模型)与行为主义(RL)的深度融合。\n特征：通过与环境交互(Behavior)涌现出通用智能。\n位面：处于联结与行为的完美融合点，迈向AGI。",
+                range: [2010, 2026], color: '#D99DF2'
+            }
+        ];
+
+        // 2. Detailed Data
+        const allData = [
+            { year: 1943, name: "M-P Neuron\n(M-P神经元)", school: "Connectionism (联结主义)", val: 10, desc: "联结主义起点：人造神经元，数学模型的开端。" },
+            { year: 1948, name: "Cybernetics\n(控制论)", school: "Behaviorism (行为主义)", val: 15, desc: "行为主义源头：维纳提出控制论，强调反馈与交互。" },
+            { year: 1950, name: "Turing Test\n(图灵测试)", school: "Symbolism (符号主义)", val: 10, desc: "符号主义哲学：模仿游戏，以此定义智能。" },
+            { year: 1956, name: "Dartmouth Workshop\n(达特茅斯会议)", school: "Symbolism (符号主义)", val: 20, desc: "AI正式诞生，符号主义确立统治地位。" },
+            { year: 1956, name: "Logic Theorist\n(逻辑理论家)", school: "Symbolism (符号主义)", val: 18, desc: "首个推理程序，证明数学定理。", yOffset: 0.25 },
+            { year: 1958, name: "LISP\n(LISP语言)", school: "Symbolism (符号主义)", val: 18, desc: "AI通用语：麦卡锡发明 LISP，符号处理的基石。" },
+            { year: 1958, name: "Perceptron\n(感知机)", school: "Connectionism (联结主义)", val: 15, desc: "感知机：联结主义的第一次高潮。" },
+            { year: 1966, name: "ALPAC Report\n(ALPAC报告)", school: "Symbolism (符号主义)", val: 12, desc: "机器翻译溃败：报告判定机器翻译昂贵且无用，引发第一次寒冬。" },
+            { year: 1969, name: "Minsky's Critique\n(明斯基的批评)", school: "Symbolism (符号主义)", val: 15, desc: "符号派领袖Minsky批评感知机，导致联结主义寒冬。" },
+            { year: 1972, name: "MYCIN\n(MYCIN系统)", school: "Symbolism (符号主义)", val: 20, desc: "专家系统代表：知识库+推理机。" },
+            { year: 1980, name: "XCON\n(XCON系统)", school: "Symbolism (符号主义)", val: 25, desc: "专家系统商业化巅峰。" },
+            { year: 1986, name: "Backpropagation\n(反向传播)", school: "Connectionism (联结主义)", val: 30, desc: "反向传播在冰河期复活了联结主义。" },
+            { year: 1989, name: "Q-Learning\n(Q学习)", school: "Behaviorism (行为主义)", val: 20, desc: "Watkins提出Q-Learning，强化学习(RL)拥有了现代形式。" },
+            { year: 1997, name: "Deep Blue\n(深蓝)", school: "Symbolism (符号主义)", val: 35, desc: "暴力搜索+专家评估：符号主义最后的辉煌。" },
+            { year: 1997, name: "LSTM\n(长短期记忆)", school: "Connectionism (联结主义)", val: 30, desc: "RNN的突破，为序列处理奠基。" },
+            { year: 1998, name: "LeNet-5\n(卷积网络)", school: "Connectionism (联结主义)", val: 40, desc: "CNN祖师爷：LeCun 提出 LeNet-5，开启现代视觉识别时代。" },
+            { year: 2012, name: "AlexNet\n(AlexNet)", school: "Connectionism (联结主义)", val: 60, desc: "深度学习大爆发，联结主义全面接管感知领域。" },
+            { year: 2013, name: "DQN (Atari)\n(深度Q网络)", school: "Behaviorism (行为主义)", val: 50, desc: "【融合点】DL(感知)+RL(决策)：DeepMind展示了联结与行为的初步结合。" },
+            { year: 2014, name: "GAN\n(生成对抗网络)", school: "Connectionism (联结主义)", val: 65, desc: "生成对抗网络：左右互搏，AIGC 的早期突破。" },
+            { year: 2015, name: "ResNet\n(残差网络)", school: "Connectionism (联结主义)", val: 70, desc: "残差网络：解决深层训练难题，识别精度首次超越人类。" },
+            { year: 2016, name: "AlphaGo\n(阿尔法狗)", school: "Behaviorism (行为主义)", val: 75, desc: "【大融合】蒙特卡洛搜索(符)+策略网络(联)+强化学习(行)。三派合一的里程碑。", labelColor: '#FF6B6B' },
+            { year: 2017, name: "Transformer\n(Transformer)", school: "Connectionism (联结主义)", val: 80, desc: "自注意力机制：联结主义在NLP领域的胜利。" },
+            { year: 2020, name: "GPT-3\n(GPT-3)", school: "Connectionism (联结主义)", val: 85, desc: "暴力美学：单纯的联结主义缩放产生涌现能力。" },
+            { year: 2022, name: "ChatGPT\n(ChatGPT)", school: "Behaviorism (行为主义)", val: 95, desc: "【关键融合】GPT(联结) + RLHF(行为)。人类反馈让AI学会'像人一样行为'。", labelColor: '#FF6B6B' },
+            { year: 2023, name: "Chain-of-Thought\n(思维链)", school: "Symbolism (符号主义)", val: 90, desc: "【螺旋上升】思维链：在神经网络中不仅输出结果，还输出'推理过程'，符号逻辑在隐空间回归。" },
+            { year: 2024, name: "Sora\n(Sora模型)", school: "Connectionism (联结主义)", val: 100, desc: "世界模型：通过观察数据理解物理规律，为具身智能提供环境模拟器。" },
+            { year: 2025, name: "Embodied AI\n(具身智能)", school: "Behaviorism (行为主义)", val: 95, desc: "【范式回归】具身智能：AI 走出数字世界，通过与物理环境的交互(RL)来塑造智能。" }
+        ];
+
+        // --- Render Function (EXACT COPY from Timeline) ---
+        function renderChart(mode, stageRange, subTitle, titleColor) {
+            let groupedData = [[], [], []];
+            let xAxisData = [];
+            const subtitleEl = document.getElementById('chart-subtitle');
+            let rawData = [];
+
+            if (mode === 'overview') {
+                document.getElementById('back-btn').style.display = 'none';
+                subtitleEl.style.display = 'none';
+                xAxisData = ["Gen 1 (1940-1979)", "Gen 2 (1980-2009)", "Gen 3 (2010-Present)"];
+
+                rawData = overviewData.map((item, index) => ({
+                    name: item.name,
+                    value: [xAxisData[index], item.yVal],
+                    symbolSize: item.symbolSize,
+                    school: item.cat,
+                    desc: item.desc,
+                    range: item.range,
+                    hexColor: item.color,
+                    itemStyle: { // Radial Gradient for Overview
+                        color: {
+                            type: 'radial',
+                            x: 0.5, y: 0.5, r: 0.5,
+                            colorStops: [
+                                { offset: 0, color: item.color },
+                                { offset: 0.4, color: item.color },
+                                { offset: 1, color: 'transparent' }
+                            ]
+                        },
+                        shadowBlur: 30,
+                        shadowColor: item.color,
+                        borderWidth: 0
+                    },
+                    label: {
+                        color: item.color,
+                        fontSize: 16,
+                        fontWeight: 'bold'
+                    }
+                }));
+
+            } else {
+                document.getElementById('back-btn').style.display = 'inline-block';
+                subtitleEl.innerHTML = subTitle ? subTitle.replace(/\n/g, ': ') : '';
+                subtitleEl.style.color = titleColor || '#4facfe';
+                subtitleEl.style.textShadow = `0 0 10px ${titleColor || 'rgba(79, 172, 254, 0.4)'}`;
+                subtitleEl.style.display = 'block';
+
+                const filteredData = allData.filter(d => d.year >= stageRange[0] && d.year <= stageRange[1]);
+                filteredData.sort((a, b) => a.year - b.year);
+
+                rawData = filteredData.map(item => {
+                    const nodeColor = colors[catMap[item.school]];
+                    let displayName = item.name;
+                    const parts = item.name.split('\n');
+                    if (parts.length > 1) {
+                        const en = parts[0].trim();
+                        const cnStub = parts[1].replace(/^\(/, '').replace(/\)$/, '').trim();
+                        if (en.toLowerCase() === cnStub.toLowerCase()) {
+                            displayName = en;
+                        }
+                    }
+
+                    return {
+                        name: displayName,
+                        value: [item.year.toString(), catMap[item.school] + (item.yOffset || 0)],
+                        symbolSize: 25 + item.val * 0.12,
+                        school: item.school,
+                        desc: item.desc,
+                        year: item.year,
+                        originalName: item.name,
+                        hexColor: nodeColor,
+                        itemStyle: { // Radial Gradient for Detail
+                            color: {
+                                type: 'radial',
+                                x: 0.5, y: 0.5, r: 0.5,
+                                colorStops: [
+                                    { offset: 0, color: nodeColor },
+                                    { offset: 0.4, color: nodeColor },
+                                    { offset: 1, color: 'transparent' }
+                                ]
+                            },
+                            shadowBlur: 20,
+                            shadowColor: nodeColor,
+                            borderWidth: 0
+                        },
+                        label: {
+                            color: item.labelColor || '#eee',
+                            show: true,
+                            fontSize: 16
+                        }
+                    };
+                });
+            }
+
+            rawData.forEach((item, index) => {
+                groupedData[index % 3].push(item);
+            });
+
+            const lineData = rawData.map(d => d.value);
+
+            option = {
+                backgroundColor: '#0b0c15',
+                title: { show: false },
+                tooltip: {
+                    trigger: 'item',
+                    renderMode: 'html',
+                    backgroundColor: 'rgba(10, 10, 20, 0.85)',
+                    borderColor: 'rgba(79, 172, 254, 0.3)',
+                    borderWidth: 1,
+                    padding: [15, 20],
+                    textStyle: { fontFamily: "'Segoe UI', Roboto, sans-serif" },
+                    extraCssText: 'box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); border-radius: 8px;',
+                    formatter: function (params) {
+                        const d = params.data;
+                        if (!d) return '';
+                        const tooltipName = d.originalName || d.name;
+                        let titleColor = '#fff';
+                        if (d.hexColor) titleColor = d.hexColor;
+                        else if (d.itemStyle && d.itemStyle.shadowColor) titleColor = d.itemStyle.shadowColor;
+
+                        const titlePart = `<div style="font-weight:700; font-size:18px; margin-bottom:8px; color:${titleColor}; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:5px;">${tooltipName.split('\n')[0]}</div>`;
+                        let subLine = mode === 'overview' ?
+                            `<div style="font-size:14px; color:#aaa; margin-bottom:10px;">${tooltipName.split('\n')[1] || ''}</div>` :
+                            `<div style="font-size:14px; color:#aaa; margin-bottom:8px;">${d.school} | ${d.year}</div>`;
+                        const descPart = `<div style="max-width:320px; font-size:14px; color:#ddd; line-height:1.6; text-align:justify; white-space:normal;">${d.desc.replace(/\n/g, '<br>')}</div>`;
+                        return titlePart + subLine + descPart;
+                    }
+                },
+                grid: { left: '10%', right: '10%', top: '20%', bottom: '5%', containLabel: true },
+                xAxis: {
+                    type: 'category',
+                    data: mode === 'overview' ? xAxisData : [...new Set(rawData.map(d => d.year))].sort((a, b) => a - b).map(String),
+                    boundaryGap: true,
+                    axisLabel: { color: '#8892b0', fontSize: 14, rotate: mode === 'detail' ? 45 : 0 },
+                    axisLine: { onZero: false, lineStyle: { color: '#444' } },
+                    name: '', nameLocation: 'end'
+                },
+                yAxis: {
+                    type: 'value', min: -0.5, max: 2.3, interval: 0.5,
+                    triggerEvent: true,
+                    axisLabel: {
+                        formatter: function (val) {
+                            if (Math.abs(val - 2) < 0.05) return 'Behaviorism\n(行为主义)';
+                            if (Math.abs(val - 1) < 0.05) return 'Connectionism\n(联结主义)';
+                            if (Math.abs(val - 0) < 0.05) return 'Symbolism\n(符号主义)';
+                            return '';
+                        },
+                        color: function (val) {
+                            if (Math.abs(val - 2) < 0.1) return colors[2];
+                            if (Math.abs(val - 1) < 0.1) return colors[1];
+                            if (Math.abs(val - 0) < 0.1) return colors[0];
+                            return '#888';
+                        },
+                        fontWeight: 'bold', fontSize: 16
+                    },
+                    splitLine: { show: true, lineStyle: { color: function (val) { return val % 1 === 0 ? '#333' : 'transparent'; }, type: 'dashed' } }
+                },
+                series: [
+                    {
+                        type: 'effectScatter', rippleEffect: { period: 4, scale: 2.2, brushType: 'fill', number: 1 }, data: groupedData[0],
+                        symbolSize: function (val, params) { return params.data.symbolSize; }, itemStyle: { opacity: 0.9 },
+                        label: { show: true, position: 'top', rotate: mode === 'detail' ? 45 : 0, formatter: params => params.data.name, color: params => params.data.label.color || '#eee' }
+                    },
+                    {
+                        type: 'effectScatter', rippleEffect: { period: 3, scale: 2.2, brushType: 'fill', number: 1 }, data: groupedData[1],
+                        symbolSize: function (val, params) { return params.data.symbolSize; }, itemStyle: { opacity: 0.9 },
+                        label: { show: true, position: 'top', rotate: mode === 'detail' ? 45 : 0, formatter: params => params.data.name, color: params => params.data.label.color || '#eee' }
+                    },
+                    {
+                        type: 'effectScatter', rippleEffect: { period: 5, scale: 2.2, brushType: 'fill', number: 1 }, data: groupedData[2],
+                        symbolSize: function (val, params) { return params.data.symbolSize; }, itemStyle: { opacity: 0.9 },
+                        label: { show: true, position: 'top', rotate: mode === 'detail' ? 45 : 0, formatter: params => params.data.name, color: params => params.data.label.color || '#eee' }
+                    },
+                    {
+                        type: 'line', smooth: true, data: lineData,
+                        lineStyle: { color: '#fff', width: 1, opacity: 0.2, type: 'dashed' }, symbol: 'none', z: 0
+                    }
+                ]
+            };
+
+            myChart.setOption(option, { notMerge: true });
+        }
+
+        renderChart('overview');
+
+        // --- Interactions (Clone) ---
+        const modal = document.getElementById('knowledge-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalClose = document.querySelector('.modal-close');
+
+        modalClose.onclick = () => { modal.style.display = 'none'; };
+        // Note: Modified window click to only check for modal click strictly to avoid closing on external clicks if needed, but keeping standard behavior
+        window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
+
+        myChart.on('click', function (params) {
+            if (params.componentType === 'yAxis') {
+                const val = params.value;
+                let paradigmKey = -1;
+                if (Math.abs(val - 0) < 0.1) paradigmKey = 0;
+                if (Math.abs(val - 1) < 0.1) paradigmKey = 1;
+                if (Math.abs(val - 2) < 0.1) paradigmKey = 2;
+
+                if (paradigmKey !== -1) {
+                    const p = paradigmDefs[paradigmKey];
+                    showModal({
+                        name: p.name, hexColor: p.hexColor, desc: p.desc, originalName: p.name
+                    });
+                }
+                return;
+            }
+
+            if (currentStage === 'overview') {
+                if (params.data && params.data.range) {
+                    currentStage = 'detail';
+                    renderChart('detail', params.data.range, params.data.name, params.data.hexColor);
+                }
+            } else {
+                if (params.data && params.data.name) {
+                    showModal(params.data);
+                }
+            }
+        });
+
+        function showModal(data) {
+            const rawName = data.originalName || data.name;
+            const enName = rawName.split('\n')[0].trim();
+            const cleanTitle = rawName.replace('\n', ' ');
+
+            modalTitle.innerText = cleanTitle;
+            modalTitle.style.background = `linear-gradient(90deg, ${data.hexColor || '#fff'}, #bbb)`;
+            modalTitle.style.webkitBackgroundClip = 'text';
+
+            const imgPath = `images/${enName}.png`;
+            const imgContainer = document.getElementById('modal-image-placeholder');
+
+            imgContainer.style.border = 'none';
+            imgContainer.style.background = 'transparent';
+
+            imgContainer.innerHTML = `
+                <img src="${imgPath}" 
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);"
+                        onerror="this.style.display='none'; this.parentElement.innerText='[Image Not Found: ${enName}.png]'; this.parentElement.style.border='1px dashed #444'; this.parentElement.style.justifyContent='center'; this.parentElement.style.alignItems='center'; this.parentElement.style.display='flex';">
+            `;
+
+            modalDesc.innerHTML = data.desc.replace(/\n/g, '<br>');
+            modal.style.display = 'flex';
+        }
+
+        document.getElementById('back-btn').addEventListener('click', function () {
+            currentStage = 'overview';
+            renderChart('overview');
+        });
+
+        document.querySelector('.title-overlay h1').addEventListener('click', function () {
+            showModal({
+                name: "The Evolution of AI Paradigms\n(AI 范式的演进)",
+                originalName: "Overview\n(全景图)",
+                hexColor: "#4facfe",
+                desc: "这是一张 AI 发展史的全景概览..."
+            });
+        });
+
+        window.addEventListener('resize', function () { myChart.resize(); });
+    </script>
+</body>
+
+</html>
