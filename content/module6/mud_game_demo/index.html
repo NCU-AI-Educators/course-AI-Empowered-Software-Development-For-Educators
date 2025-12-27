@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MUD Game Web Demo (Lesson 3)</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #1e1e1e;
+            color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #252526;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 450px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Login */
+        .login-wrap {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .qr-box {
+            text-align: center;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .qr-box img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .qr-box p {
+            color: #333;
+            margin: 5px 0 0 0;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Fix iOS Zoom: Font size must be 16px+ */
+        input,
+        button {
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #3e3e42;
+            background: #333;
+            color: white;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #0e639c;
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1177bb;
+        }
+
+        /* Game Layout */
+        #game-view {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 10px;
+        }
+
+        /* Room Info */
+        .room-card {
+            background: #333;
+            padding: 10px;
+            border-radius: 4px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        #room-name {
+            font-size: 1.2rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        #room-desc {
+            color: #aaa;
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .status-line {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .status-item {
+            background: #444;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        /* Chat Log */
+        .log-container {
+            flex: 1;
+            overflow-y: auto;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .log-entry {
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .log-entry.sys {
+            color: #888;
+            font-style: italic;
+        }
+
+        .log-entry.chat {
+            color: #4ec9b0;
+        }
+
+        .log-entry.npc {
+            color: #ce9178;
+        }
+
+        /* NPC color */
+
+        /* Controls */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .exit-btn {
+            background-color: #3e3e42;
+            margin-top: 0;
+        }
+
+        .exit-btn:hover {
+            background-color: #505050;
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            display: flex;
+            gap: 5px;
+        }
+
+        #chat-msg {
+            flex: 1;
+        }
+
+        #send-btn {
+            width: 60px;
+            background-color: #4CAF50;
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🗡️ MUD 江湖</h1>
+
+        <!-- Login View -->
+        <div id="login-view" class="login-wrap">
+            <div class="qr-box">
+                <!-- Point to relative path /qrcode -->
+                <img src="/qrcode" alt="Scan to Join">
+                <p>手机扫码加入</p>
+            </div>
+
+            <div style="width: 100%;">
+                <input type="text" id="username" placeholder="请输入大侠名号 (如: 郭靖)">
+                <button onclick="login()">进入江湖</button>
+            </div>
+        </div>
+
+        <!-- Game View -->
+        <div id="game-view" class="hidden">
+            <!-- Top: Room Info -->
+            <div class="room-card">
+                <h2 id="room-name">Loading...</h2>
+                <p id="room-desc">...</p>
+                <div class="status-line">
+                    <div class="status-item">👤 <span id="others">无</span></div>
+                    <div class="status-item">🤖 <span id="npcs">无</span></div>
+                    <div class="status-item">📦 <span id="items">无</span></div>
+                </div>
+            </div>
+
+            <!-- Middle: Chat Log -->
+            <div class="log-container" id="message-log">
+                <div class="log-entry sys">正在连接服务器...</div>
+            </div>
+
+            <!-- Bottom: Controls -->
+            <div id="exits" class="controls">
+                <!-- Buttons -->
+            </div>
+
+            <!-- Chat -->
+            <div class="chat-input-area">
+                <input type="text" id="chat-msg" placeholder="喊话 (大家都能听见)...">
+                <button id="send-btn" onclick="shout()">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "";
+        let currentUser = "";
+        let pollingInterval = null;
+
+        async function login() {
+            const username = document.getElementById('username').value.trim();
+            if (!username) return alert("大侠请留名！");
+
+            try {
+                const res = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uid: username })
+                });
+                const data = await res.json();
+
+                if (data.code === 200) {
+                    currentUser = username;
+                    document.getElementById('login-view').classList.add('hidden');
+                    document.getElementById('game-view').classList.remove('hidden');
+                    refreshState();
+                    pollingInterval = setInterval(refreshState, 2000);
+                }
+            } catch (err) {
+                alert("无法连接服务器");
+            }
+        }
+
+        async function refreshState() {
+            try {
+                const res = await fetch(`${API_BASE}/state?uid=${currentUser}`);
+                if (res.status === 404) return window.location.reload();
+                const data = await res.json();
+
+                if (data.code === 200) {
+                    renderGame(data.data);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderGame(state) {
+            document.getElementById('room-name').innerText = state.room;
+            document.getElementById('room-desc').innerText = state.desc;
+
+            // Statuses
+            setText('others', state.others);
+            setText('npcs', state.npcs);
+            setText('items', state.items);
+
+            // Exits
+            const exitsContainer = document.getElementById('exits');
+            exitsContainer.innerHTML = '';
+            state.exits.forEach(direction => {
+                const btn = document.createElement('button');
+                btn.className = 'exit-btn';
+                btn.innerText = `前往 ${formatDir(direction)}`;
+                btn.onclick = () => move(direction);
+                exitsContainer.appendChild(btn);
+            });
+
+            // Chat Log
+            const logContainer = document.getElementById('message-log');
+
+            // Sync Chat (includes NPC talk now)
+            logContainer.innerHTML = '';
+            state.chat.forEach(msg => {
+                let type = 'chat';
+                if (msg.startsWith('📢')) type = 'sys';
+                else if (msg.startsWith('🤖')) type = 'npc';
+
+                const div = document.createElement('div');
+                div.className = `log-entry ${type}`;
+                div.innerText = msg;
+                logContainer.appendChild(div);
+            });
+
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function setText(id, list) {
+            const el = document.getElementById(id);
+            el.innerText = (list && list.length > 0) ? list.join(", ") : "无";
+        }
+
+        function formatDir(dir) {
+            const maps = { 'north': '北', 'south': '南', 'east': '东', 'west': '西' };
+            return maps[dir] || dir;
+        }
+
+        async function move(direction) {
+            await fetch(`${API_BASE}/move`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid: currentUser, target: direction })
+            });
+            refreshState();
+        }
+
+        async function shout() {
+            const input = document.getElementById('chat-msg');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            await fetch(`${API_BASE}/shout`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uid: currentUser, target: msg })
+            });
+            input.value = '';
+            refreshState();
+        }
+
+        document.getElementById('chat-msg').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') shout();
+        });
+    </script>
+</body>
+
+</html>

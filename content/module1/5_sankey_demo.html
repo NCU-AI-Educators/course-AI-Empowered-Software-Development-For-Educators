@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桑基图 - 数据可视化</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column; /* Arrange title and chart vertically */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        #sankey-chart {
+            width: 90vw;
+            height: 80vh;
+            max-width: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <h1>能源流向桑基图</h1>
+    <p style="color: #aaa;">单位: TWh (太瓦时) = 10<sup>9</sup> KWh (十亿度电)</p>
+
+    <!-- Container for the chart -->
+    <div id="sankey-chart"></div>
+
+    <!-- 1. Import ECharts Library -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+    <!-- 2. Your Chart Logic -->
+    <script>
+        // 3. Initialize ECharts instance
+        var myChart = echarts.init(document.getElementById('sankey-chart'));
+
+        // 4. Define the translated data directly in the script
+        const data = {
+            nodes: [
+                { name: "农业废弃物" }, { name: "生物质转换" }, { name: "液体燃料" }, { name: "损耗" }, { name: "固体燃料" }, { name: "气体燃料" }, { name: "生物燃料" }, { name: "生物质" }, { name: "煤炭" }, { name: "区域供暖" }, { name: "工业用能" }, { name: "制热与制冷" }, { name: "道路交通" }, { name: "居民用能" }, { name: "农业用能" }, { name: "商业用能" }, { name: "其他" }, { name: "电网" }, { name: "氢能转换" }, { name: "太阳能" }, { name: "火力发电" }, { name: "地热能" }, { name: "水力发电" }, { name: "天然气" }, { name: "核能" }, { name: "热能" }, { name: "石油" }, { name: "油气" }, { name: "废弃物" }, { name: "风能" }, { name: "终端总消费" }, { name: "进口" }, { name: "国内供给" }, { name: "国内生产" }
+            ],
+            links: [
+                { source: "农业废弃物", target: "生物质转换", value: 124.729 }, { source: "生物质转换", target: "液体燃料", value: 0.597 }, { source: "生物质转换", target: "损耗", value: 26.862 }, { source: "生物质转换", target: "固体燃料", value: 280.322 }, { source: "生物质转换", target: "气体燃料", value: 81.144 }, { source: "生物燃料", target: "生物质转换", value: 124.729 }, { source: "生物质", target: "生物质转换", value: 124.729 }, { source: "煤炭", target: "固体燃料", value: 400 }, { source: "区域供暖", target: "制热与制冷", value: 10 }, { source: "工业用能", target: "制热与制冷", value: 20 }, { source: "制热与制冷", target: "终端总消费", value: 30 }, { source: "道路交通", target: "液体燃料", value: 100 }, { source: "居民用能", target: "制热与制冷", value: 40 }, { source: "农业用能", target: "固体燃料", value: 50 }, { source: "商业用能", target: "固体燃料", value: 60 }, { source: "其他", target: "固体燃料", value: 70 }, { source: "电网", target: "氢能转换", value: 10 }, { source: "电网", target: "工业用能", value: 50 }, { source: "电网", target: "制热与制冷", value: 40 }, { source: "电网", target: "道路交通", value: 30 }, { source: "电网", target: "居民用能", value: 90 }, { source: "电网", target: "农业用能", value: 20 }, { source: "电网", target: "商业用能", value: 80 }, { source: "电网", target: "其他", value: 10 }, { source: "氢能转换", target: "气体燃料", value: 10 }, { source: "太阳能", target: "电网", value: 50 }, { source: "火力发电", target: "电网", value: 100 }, { source: "地热能", target: "电网", value: 5 }, { source: "水力发电", target: "电网", value: 150 }, { source: "天然气", target: "气体燃料", value: 200 }, { source: "天然气", target: "火力发电", value: 50 }, { source: "核能", target: "火力发电", value: 250 }, { source: "热能", target: "火力发电", value: 50 }, { source: "石油", target: "液体燃料", value: 300 }, { source: "石油", target: "火力发电", value: 100 }, { source: "油气", target: "天然气", value: 200 }, { source: "油气", target: "石油", value: 400 }, { source: "废弃物", target: "固体燃料", value: 100 }, { source: "废弃物", target: "火力发电", value: 20 }, { source: "风能", target: "电网", value: 120 }, { source: "终端总消费", target: "损耗", value: 100 }, { source: "进口", target: "油气", value: 300 }, { source: "进口", target: "煤炭", value: 200 }, { source: "进口", target: "天然气", value: 100 }, { source: "国内供给", target: "农业废弃物", value: 124.729 }, { source: "国内供给", target: "生物燃料", value: 124.729 }, { source: "国内供给", target: "生物质", value: 124.729 }, { source: "国内供给", target: "煤炭", value: 200 }, { source: "国内供给", target: "地热能", value: 5 }, { source: "国内供给", target: "水力发电", value: 150 }, { source: "国内供给", target: "天然气", value: 100 }, { source: "国内供给", target: "核能", value: 250 }, { source: "国内供给", target: "石油", value: 100 }, { source: "国内供给", target: "太阳能", value: 50 }, { source: "国内供给", target: "废弃物", value: 100 }, { source: "国内供给", target: "风能", value: 120 }, { source: "国内生产", target: "国内供给", value: 1224.729 }
+            ]
+        };
+
+        // 5. Specify chart configuration and data
+        const option = {
+            backgroundColor: '#1a1a1a',
+            tooltip: {
+                trigger: 'item',
+                triggerOn: 'mousemove'
+            },
+            series: [
+                {
+                    type: 'sankey',
+                    layout: 'none',
+                    emphasis: {
+                        focus: 'adjacency'
+                    },
+                    data: data.nodes,
+                    links: data.links,
+                    // Style for dark mode
+                    lineStyle: {
+                        color: 'gradient',
+                        curveness: 0.5
+                    },
+                    label: {
+                        color: '#fff'
+                    }
+                }
+            ]
+        };
+
+        // 6. Display the chart using the option
+        myChart.setOption(option);
+
+        // Optional: make the chart responsive
+        window.addEventListener('resize', function () {
+            myChart.resize();
+        });
+
+    </script>
+</body>
+</html>

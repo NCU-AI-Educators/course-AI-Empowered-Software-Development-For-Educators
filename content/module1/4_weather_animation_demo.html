@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Animations</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .weather-card {
+            width: 200px;
+            height: 250px;
+            background-color: #2c2c2c;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .weather-card h3 {
+            margin: 0;
+            font-size: 1.2em;
+            z-index: 10;
+        }
+
+        /* --- Sun Card --- */
+        .sun {
+            width: 60px;
+            height: 60px;
+            background: #ffc107;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px #ffc107;
+        }
+        .sun-rays div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 2px;
+            width: 100px;
+            background: #ffc107;
+            transform-origin: center left;
+        }
+        .sun-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            transform: translate(-50%, -50%);
+            animation: spin 10s linear infinite;
+        }
+        .sun-rays .ray-1 { transform: rotate(0deg); }
+        .sun-rays .ray-2 { transform: rotate(45deg); }
+        .sun-rays .ray-3 { transform: rotate(90deg); }
+        .sun-rays .ray-4 { transform: rotate(135deg); }
+
+        /* --- Rain Card --- */
+        .cloud {
+            width: 100px;
+            height: 40px;
+            background: #9e9e9e;
+            border-radius: 20px;
+            position: absolute;
+            top: 40px;
+            left: 50px;
+        }
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: #9e9e9e;
+            border-radius: 50%;
+        }
+        .cloud::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 15px;
+        }
+        .cloud::after {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 40px;
+        }
+        .raindrop {
+            position: absolute;
+            top: -10px;
+            width: 2px;
+            height: 10px;
+            background: #7f9bff;
+            animation: fall 0.5s linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(260px);
+            }
+        }
+
+        /* --- Wind Card --- */
+        .wind .cloud {
+            animation: move-cloud 4s ease-in-out infinite alternate;
+        }
+        .tree {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform-origin: bottom center;
+            animation: sway 2s ease-in-out infinite alternate;
+        }
+        .trunk {
+            width: 10px;
+            height: 50px;
+            background: #5d4037;
+            position: absolute;
+            bottom: 0;
+            left: -5px;
+        }
+        .leaves {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 70px solid #4caf50;
+            position: absolute;
+            bottom: 50px;
+            left: -30px;
+        }
+
+        /* --- Snow Card --- */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: snow-fall 5s linear infinite;
+        }
+        @keyframes snow-fall {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(260px) translateX(20px); }
+        }
+
+
+        /* Animation Keyframes */
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        @keyframes move-cloud {
+            from { transform: translateX(-20px); }
+            to { transform: translateX(20px); }
+        }
+        @keyframes sway {
+            from { transform: rotate(-5deg); }
+            to { transform: rotate(5deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sun Card -->
+        <div class="weather-card sun-card">
+            <div class="sun-rays">
+                <div class="ray-1"></div>
+                <div class="ray-2"></div>
+                <div class="ray-3"></div>
+                <div class="ray-4"></div>
+            </div>
+            <div class="sun"></div>
+            <h3>Sun</h3>
+        </div>
+
+        <!-- Rain Card -->
+        <div class="weather-card rain-card">
+            <div class="cloud"></div>
+            <div class="raindrop" style="left: 60px; animation-delay: 0s;"></div>
+            <div class="raindrop" style="left: 80px; animation-delay: 0.2s;"></div>
+            <div class="raindrop" style="left: 100px; animation-delay: 0.1s;"></div>
+            <div class="raindrop" style="left: 120px; animation-delay: 0.3s;"></div>
+            <div class="raindrop" style="left: 140px; animation-delay: 0.15s;"></div>
+            <h3>Rain</h3>
+        </div>
+
+        <!-- Wind Card -->
+        <div class="weather-card wind">
+            <div class="cloud"></div>
+            <div class="tree">
+                <div class="trunk"></div>
+                <div class="leaves"></div>
+            </div>
+            <h3>Wind</h3>
+        </div>
+
+        <!-- Snow Card -->
+        <div class="weather-card snow-card">
+            <div class="cloud"></div>
+            <div class="snowflake" style="left: 60px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="snowflake" style="left: 80px; animation-duration: 5s; animation-delay: 2s;"></div>
+            <div class="snowflake" style="left: 100px; animation-duration: 7s; animation-delay: 1s;"></div>
+            <div class="snowflake" style="left: 120px; animation-duration: 5.5s; animation-delay: 3s;"></div>
+            <div class="snowflake" style="left: 140px; animation-duration: 6.5s; animation-delay: 2.5s;"></div>
+            <h3>Snow</h3>
+        </div>
+    </div>
+
+</body>
+</html>

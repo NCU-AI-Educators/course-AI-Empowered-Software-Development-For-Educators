@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Building Demolition - Ultimate</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #333; }
+        canvas { display: block; }
+        #ui { position: absolute; top: 10px; left: 10px; z-index: 100; color: white; }
+        button { margin: 5px; }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <button id="explodeBtn">Explode</button>
+        <button id="resetBtn">Reset</button>
+        <p>LMB: Rotate, RMB: Pan, Wheel: Zoom</p>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/",
+                "cannon-es": "https://unpkg.com/cannon-es@0.20.0/dist/cannon-es.js",
+                "three.quarks": "https://unpkg.com/three.quarks@0.16.0/dist/three.quarks.esm.js",
+                "quarks.core": "https://cdn.jsdelivr.net/npm/quarks.core@0.16.0/+esm"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import * as CANNON from 'cannon-es';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import * as QUARKS from "three.quarks";
+        const { BatchedRenderer, ParticleSystem, IntervalValue, ColorRange, ConstantValue, SphereEmitter, RenderMode, ColorOverLife, SizeOverLife, PiecewiseBezier, Bezier } = QUARKS;
+
+
+        // --- SCENE, CAMERA, RENDERER ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(80, 40, 80);
+        camera.lookAt(0, 30, 0);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        document.body.appendChild(renderer.domElement);
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        // --- LIGHTING ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
+        directionalLight.position.set(30, 50, 20);
+        directionalLight.castShadow = true;
+        scene.add(directionalLight);
+
+        // --- PHYSICS ---
+        const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -30, 0), allowSleep: true });
+        const objectsToUpdate = [];
+        let explosionTargetBody = null;
+        let hasExploded = false;
+        const clock = new THREE.Clock();
+
+        const groundMaterial = new CANNON.Material('ground');
+        const brickMaterial = new CANNON.Material('brick');
+        world.addContactMaterial(new CANNON.ContactMaterial(groundMaterial, brickMaterial, { friction: 0.8, restitution: 0.05 }));
+        world.addContactMaterial(new CANNON.ContactMaterial(brickMaterial, brickMaterial, { friction: 0.9, restitution: 0.01 }));
+
+        const groundBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane(), material: groundMaterial });
+        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+        world.addBody(groundBody);
+        const groundMesh = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.MeshStandardMaterial({ color: 0x4a4a4a, side: THREE.DoubleSide }));
+        groundMesh.rotation.x = -Math.PI / 2;
+        groundMesh.receiveShadow = true;
+        scene.add(groundMesh);
+
+        // --- SMOKE PARTICLE SYSTEM (three.quarks) ---
+        const batchRenderer = new BatchedRenderer();
+        scene.add(batchRenderer);
+        let smokeSystem;
+
+        function createQuarksSmoke(explosionPos) {
+            const smokeTexture = new THREE.CanvasTexture(createSmokeCanvas());
+
+            smokeSystem = new ParticleSystem({
+                duration: 5,
+                looping: false,
+                startLife: new IntervalValue(10, 14),
+                startSpeed: new IntervalValue(2, 6), // Increased speed for impact
+                startSize: new IntervalValue(2, 5),
+                startColor: new ColorRange(new THREE.Vector4(0.6, 0.5, 0.4, 0.7), new THREE.Vector4(0.8, 0.7, 0.6, 0.8)),
+                worldSpace: true,
+                maxParticles: 50000, // Increased count for density
+                emissionBursts: [{ time: 0, count: new ConstantValue(50000) }],
+                shape: new SphereEmitter({
+                    radius: 2,
+                    arc: Math.PI * 2,
+                    thickness: 1,
+                    randomize: true,
+                }),
+                material: new THREE.MeshBasicMaterial({
+                    map: smokeTexture,
+                    blending: THREE.NormalBlending,
+                    transparent: true,
+                    depthWrite: false,
+                }),
+                renderMode: RenderMode.BillBoard,
+                behaviors: [
+                    new ColorOverLife(new ColorRange(new THREE.Vector4(0.8, 0.7, 0.6, 0.8), new THREE.Vector4(0.2, 0.2, 0.2, 0))),
+                    new SizeOverLife(new PiecewiseBezier([[new Bezier(0.1, 2.0, 4.0, 6.0), 0]])), // Increased size curve
+                ]
+            });
+            
+            scene.add(smokeSystem.emitter);
+
+            smokeSystem.emitter.position.copy(explosionPos);
+            batchRenderer.addSystem(smokeSystem);
+        }
+
+        function createSmokeCanvas() {
+            const canvas = document.createElement('canvas');
+            const canvasSize = 64;
+            canvas.width = canvasSize;
+            canvas.height = canvasSize;
+            const ctx = canvas.getContext('2d');
+            const centerX = canvasSize / 2;
+            const centerY = canvasSize / 2;
+            const radius = canvasSize / 2;
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+            gradient.addColorStop(0, 'rgba(200, 200, 200, 0.8)');
+            gradient.addColorStop(1, 'rgba(200, 200, 200, 0)');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvasSize, canvasSize);
+            return canvas;
+        }
+
+
+        // --- BUILDING GENERATION ---
+        const brickMeshMat = new THREE.MeshStandardMaterial({ color: 0xd2b48c });
+        function createBuilding() {
+            const brickHeight = 1, brickDepth = 2, numBricksPerRow = 20, buildingHeight = 60;
+            const radius = (numBricksPerRow * (brickDepth * 1.5)) / (2 * Math.PI);
+            const brickShape = new CANNON.Box(new CANNON.Vec3(brickDepth / 2, brickHeight / 2, 1));
+            const brickGeo = new THREE.BoxGeometry(brickDepth, brickHeight, 2);
+
+            for (let y = 0; y < buildingHeight; y++) {
+                for (let i = 0; i < numBricksPerRow; i++) {
+                    const angle = (i / numBricksPerRow) * Math.PI * 2 + (y % 2) * (Math.PI / numBricksPerRow);
+                    const x = Math.cos(angle) * radius, z = Math.sin(angle) * radius;
+                    const brickBody = new CANNON.Body({ mass: 5, position: new CANNON.Vec3(x, y * brickHeight + brickHeight / 2, z), shape: brickShape, material: brickMaterial, allowSleep: true, sleepSpeedLimit: 0.1 });
+                    brickBody.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -angle);
+                    world.addBody(brickBody);
+                    const brickMesh = new THREE.Mesh(brickGeo, brickMeshMat);
+                    brickMesh.castShadow = true;
+                    scene.add(brickMesh);
+                    objectsToUpdate.push({ mesh: brickMesh, body: brickBody });
+                    if (y === 0 && i === 0) explosionTargetBody = brickBody;
+                }
+            }
+            setTimeout(() => objectsToUpdate.forEach(obj => obj.body.sleep()), 500);
+        }
+
+        // --- EXPLOSION ---
+        function explode() {
+            if (hasExploded || !explosionTargetBody) return;
+            hasExploded = true;
+
+            const targetObject = objectsToUpdate.find(obj => obj.body === explosionTargetBody);
+            if (targetObject) {
+                targetObject.mesh.material = targetObject.mesh.material.clone();
+                targetObject.mesh.material.color.set(0xff0000);
+            }
+
+            const explosionPos = explosionTargetBody.position;
+            objectsToUpdate.forEach(obj => obj.body.wakeUp());
+            
+            createQuarksSmoke(explosionPos);
+
+            world.bodies.forEach(body => {
+                if (body.mass > 0) {
+                    const dist = body.position.distanceTo(explosionPos);
+                    if (dist < 2) {
+                        let force = 500 * (1 + (Math.random() - 0.5) * 0.4);
+                        const direction = new CANNON.Vec3();
+                        body.position.vsub(explosionPos, direction);
+                        direction.normalize();
+                        body.applyImpulse(direction.scale(force), new CANNON.Vec3(0, 0, 0));
+                    }
+                }
+            });
+        }
+
+        // --- UI & ANIMATION ---
+        document.getElementById('explodeBtn').addEventListener('click', explode);
+        document.getElementById('resetBtn').addEventListener('click', () => location.reload());
+
+        function animate() {
+            const deltaTime = clock.getDelta();
+            world.step(1 / 60, deltaTime, 3);
+            
+            if (batchRenderer) {
+                batchRenderer.update(deltaTime);
+            }
+
+            for (const obj of objectsToUpdate) {
+                obj.mesh.position.copy(obj.body.position);
+                obj.mesh.quaternion.copy(obj.body.quaternion);
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+
+        createBuilding();
+        animate();
+
+        // --- RESIZE HANDLER ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    </script>
+</body>
+</html>
